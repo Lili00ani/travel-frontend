@@ -1,8 +1,9 @@
 import { Button, Datepicker, Label, Spinner, TextInput } from "flowbite-react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Travel, Country } from "../utilities/types";
 import axios from "axios";
 import { BACKEND_URL } from "../constant";
+import { useNavigate } from "react-router-dom";
 
 const initialTravelState: Travel = {
   name: "",
@@ -17,6 +18,7 @@ export function TravelForm() {
   const [travel, setTravel] = useState<Travel>(initialTravelState);
   const [loading, setLoading] = useState<boolean>(false);
   const [countries, setCountries] = useState<Country[]>(initialCountriesState);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchAll = async () => {
@@ -43,6 +45,21 @@ export function TravelForm() {
     setTravel({ ...travel, [e.target.name]: e.target.value });
   };
 
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setLoading(true);
+    console.log(travel);
+    try {
+      await axios.post(`${BACKEND_URL}/travel`, { travel });
+      setTravel(initialTravelState);
+      setLoading(false);
+      navigate("/home");
+    } catch (error) {
+      console.error(error);
+      setLoading(false);
+    }
+  };
+
   return (
     <>
       {loading && (
@@ -50,7 +67,10 @@ export function TravelForm() {
           <Spinner aria-label="Center-aligned spinner example" />
         </div>
       )}
-      <form className="flex-col gap-4 w-9/12 md:w-6/12 lg:w-4/12 my-10">
+      <form
+        className="flex-col gap-4 w-9/12 md:w-6/12 lg:w-4/12 my-10"
+        onSubmit={handleSubmit}
+      >
         <div>
           <div className="my-1 block">
             <Label htmlFor="name1" value="Travel Plan Name" />
