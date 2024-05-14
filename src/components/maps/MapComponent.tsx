@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import { APIProvider, ControlPosition, Map } from "@vis.gl/react-google-maps";
-
-import ControlPanel from "./control-panel";
 import { CustomMapControl } from "./map-control";
 import MapHandler from "./map-handler";
 
@@ -35,8 +33,6 @@ export const MapComponent = () => {
         selectedAutocompleteMode={selectedAutocompleteMode}
         onPlaceSelect={setSelectedPlace}
       />
-
-      <ControlPanel selectedAutocompleteMode={selectedAutocompleteMode} />
 
       <MapHandler place={selectedPlace} />
     </APIProvider>

@@ -1,6 +1,6 @@
 import React from "react";
 import { ControlPosition, MapControl } from "@vis.gl/react-google-maps";
-import { AutocompleteCustomHybrid } from "./autcomplete";
+import { AutocompleteCustomHybrid } from "./autocomplete";
 import type { AutocompleteMode } from "./MapComponent";
 
 type CustomAutocompleteControlProps = {
