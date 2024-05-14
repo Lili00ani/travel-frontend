@@ -1,4 +1,5 @@
 export interface Travel {
+  owner_id: string;
   name: string;
   start: Date;
   end: Date;

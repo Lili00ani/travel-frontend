@@ -19,10 +19,8 @@ export default function MapComponent() {
     lng: parseFloat("103.83589066897413"),
   };
 
-  const apiKey: string = process.env.REACT_APP_GOOGLE_MAPS_API_KEY!;
-
   return (
-    <APIProvider apiKey={apiKey}>
+    <APIProvider apiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY!}>
       <Map
         mapId={"map"}
         style={{ width: "90vw", height: "30vh" }}

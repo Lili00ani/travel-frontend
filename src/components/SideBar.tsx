@@ -139,7 +139,9 @@ export default function SideBar() {
                 </NavLink>
               </Sidebar.ItemGroup>
               <Sidebar.ItemGroup>
-                <Sidebar.Item icon={HiHome}>Homepage</Sidebar.Item>
+                <NavLink to="home">
+                  <Sidebar.Item icon={HiHome}>Homepage</Sidebar.Item>
+                </NavLink>
               </Sidebar.ItemGroup>
             </Sidebar.Items>
           </Sidebar>

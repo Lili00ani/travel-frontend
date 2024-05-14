@@ -1,11 +1,14 @@
 import { Button, Datepicker, Label, Spinner, TextInput } from "flowbite-react";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Travel, Country } from "../utilities/types";
 import axios from "axios";
 import { BACKEND_URL } from "../constant";
 import { useNavigate } from "react-router-dom";
+import { UserRContext } from "../providers/userProvider";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const initialTravelState: Travel = {
+  owner_id: "",
   name: "",
   start: new Date(),
   end: new Date(),
@@ -19,10 +22,13 @@ export function TravelForm() {
   const [loading, setLoading] = useState<boolean>(false);
   const [countries, setCountries] = useState<Country[]>(initialCountriesState);
   const navigate = useNavigate();
+  const value = useContext(UserRContext);
+  const { getAccessTokenSilently } = useAuth0();
 
   useEffect(() => {
-    const fetchAll = async () => {
+    const fetchUserandCountries = async () => {
       setLoading(true);
+      setTravel({ ...travel, ["owner_id"]: value?.user.userId! });
       try {
         const response = await axios.get(`${BACKEND_URL}/countries`);
         setCountries(response.data);
@@ -32,7 +38,7 @@ export function TravelForm() {
         setLoading(false);
       }
     };
-    fetchAll();
+    fetchUserandCountries();
   }, []);
 
   const handleDateChange = (date: Date, fieldName: "start" | "end") => {
@@ -47,10 +53,19 @@ export function TravelForm() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const accessToken = await getAccessTokenSilently();
+    console.log(accessToken, travel);
     setLoading(true);
-    console.log(travel);
     try {
-      await axios.post(`${BACKEND_URL}/travel`, { travel });
+      await axios.post(
+        `${BACKEND_URL}/travel`,
+        { travel },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
       setTravel(initialTravelState);
       setLoading(false);
       navigate("/home");
@@ -94,6 +109,7 @@ export function TravelForm() {
           <div className="my-1 block">
             <Label htmlFor="date1" value="End Date" />
           </div>
+          {/* end date cannot be earlier than start date */}
           <Datepicker
             required
             id="date"
@@ -116,10 +132,12 @@ export function TravelForm() {
           <select
             id="country_code"
             name="country_code"
+            required
             value={travel.country_code}
             onChange={handleInputChange}
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg flex w-full"
           >
+            <option value="">Select a country</option>
             {countries.map((country) => (
               <option key={country.code} value={country.code}>
                 {country.name}
