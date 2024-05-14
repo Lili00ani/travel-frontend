@@ -1,12 +1,12 @@
-import { LogoutButton } from "../components/button/Logout";
 import { UserProvider, UserRContext } from "../providers/userProvider";
 import { useContext, useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useNavigate, Link } from "react-router-dom";
 import { BACKEND_URL } from "../constant";
 import axios from "axios";
-import { Button, Spinner } from "flowbite-react";
+import { Spinner } from "flowbite-react";
 import { Travel } from "../utilities/types";
+import NavigationBar from "../components/Navbar";
 import PreviewCard from "../components/PreviewCard";
 import { PreviewCardProps } from "../components/PreviewCard";
 
@@ -53,7 +53,7 @@ export default function HomePage() {
     }
   };
 
-  const fetchAll = async () => {
+  const fetchTravelPlans = async () => {
     setLoading(true);
     try {
       console.log("fetchalluserId", value?.user.userId!);
@@ -82,7 +82,7 @@ export default function HomePage() {
 
   useEffect(() => {
     if (isChecked) {
-      fetchAll();
+      fetchTravelPlans();
     }
   }, [isChecked]);
 
@@ -90,25 +90,18 @@ export default function HomePage() {
     <PreviewCard key={travel.id} {...travel} />
   ));
 
-  //what happens if user is not authenticated?
-
   return (
-    <div className="flex">
-      {loading && (
-        <div className="text-center">
-          <Spinner aria-label="Center-aligned spinner example" />
-        </div>
-      )}
-      <h1>homePage</h1>
-      <div>
-        <Button as={Link} to="/create">
-          Create Travel
-        </Button>
+    <>
+      <NavigationBar />
+      <div className="flex">
+        {loading && (
+          <div className="text-center">
+            <Spinner aria-label="Center-aligned spinner example" />
+          </div>
+        )}
+
+        <div>{travelPreviews}</div>
       </div>
-      <div>{travelPreviews}</div>
-      <div>
-        <LogoutButton />
-      </div>
-    </div>
+    </>
   );
 }
