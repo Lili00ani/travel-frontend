@@ -56,7 +56,7 @@ export default function HomePage() {
     try {
       console.log("fetchalluserId", value?.user.userId!);
       const accessToken = await getAccessTokenSilently();
-      const response = await axios.get(`${BACKEND_URL}/travel`, {
+      const response = await axios.get(`${BACKEND_URL}/travel/all`, {
         params: {
           id: value?.user.userId!,
         },
