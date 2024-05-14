@@ -8,7 +8,7 @@ import {
 
 //-----------Components-----------//
 
-export default function MapComponent() {
+export default function Map1() {
   const defaultCenter: { lat: number; lng: number } = {
     lat: parseFloat("1.2868585386199578"),
     lng: parseFloat("103.83589066897413"),
