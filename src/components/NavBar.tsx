@@ -67,9 +67,7 @@ function NavigationBar() {
         <Navbar.Toggle />
       </div>
       <Navbar.Collapse>
-        <Navbar.Link href="#" active>
-          Logout
-        </Navbar.Link>
+        <LogoutButton />
       </Navbar.Collapse>
     </Navbar>
   );
