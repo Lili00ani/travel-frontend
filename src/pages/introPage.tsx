@@ -3,6 +3,7 @@ import { LoginButton } from "../components/button/Login";
 import { SignupButton } from "../components/button/Signup";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import NavigationBar from "../components/NavBar";
 
 export default function IntroPage() {
   const { isAuthenticated } = useAuth0();
@@ -16,13 +17,8 @@ export default function IntroPage() {
 
   return (
     <>
+      <NavigationBar />
       <h1>IntroPage</h1>
-      {!isAuthenticated && (
-        <>
-          <SignupButton />
-          <LoginButton />
-        </>
-      )}
     </>
   );
 }
