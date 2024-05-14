@@ -7,17 +7,16 @@ import axios from "axios";
 import { Spinner } from "flowbite-react";
 import NavigationBar from "../components/NavBar";
 import PreviewCard from "../components/PreviewCard";
-import { PreviewCardProps } from "../components/PreviewCard";
+import { TravelCard } from "../utilities/types";
 
-const initialTravelState: PreviewCardProps[] = [];
+const initialTravelState: TravelCard[] = [];
 
 export default function HomePage() {
   const value = useContext(UserRContext);
   const { isAuthenticated, getAccessTokenSilently, user } = useAuth0();
   const navigate = useNavigate();
   const [loading, setLoading] = useState<boolean>(false);
-  const [travels, setTravels] =
-    useState<PreviewCardProps[]>(initialTravelState);
+  const [travels, setTravels] = useState<TravelCard[]>(initialTravelState);
   const [isChecked, setIsChecked] = useState<boolean>(false);
 
   const checkUser = async () => {

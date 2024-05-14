@@ -2,19 +2,9 @@
 import { Card } from "flowbite-react";
 import React, { FunctionComponent } from "react";
 import DateRangeComponent from "./DateRange";
+import { TravelCard } from "../utilities/types";
 
-export interface PreviewCardProps {
-  id: number;
-  name: string;
-  start: string;
-  end: string;
-  pax: number;
-  country_code: string;
-  created_at: string;
-  updated_at: string;
-}
-
-const PreviewCard: FunctionComponent<PreviewCardProps> = (props) => {
+const PreviewCard: FunctionComponent<TravelCard> = (props) => {
   return (
     <Card href={`./${props.id}/organize`} className="max-w-sm">
       <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
