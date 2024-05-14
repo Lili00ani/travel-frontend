@@ -17,10 +17,10 @@ export default function RouterProvider() {
         <Route path="create" element={<TravelPage />} />
         <Route path="edit" element={<TravelPage />} />
         <Route element={<Layout />}>
-          <Route path="schedule" element={<SchedulePage />} />
-          <Route path="places" element={<PlacesPage />} />
-          <Route path="organize" element={<OrganizePage />} />
-          <Route path="day" element={<DailyPage />} />
+          <Route path=":id/schedule" element={<SchedulePage />} />
+          <Route path=":id/places" element={<PlacesPage />} />
+          <Route path=":id/organize" element={<OrganizePage />} />
+          <Route path=":id/day" element={<DailyPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

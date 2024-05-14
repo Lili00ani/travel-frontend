@@ -5,8 +5,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { BACKEND_URL } from "../constant";
 import axios from "axios";
 import { Spinner } from "flowbite-react";
-import { Travel } from "../utilities/types";
-import NavigationBar from "../components/Navbar";
+import NavigationBar from "../components/NavBar";
 import PreviewCard from "../components/PreviewCard";
 import { PreviewCardProps } from "../components/PreviewCard";
 
@@ -74,8 +73,6 @@ export default function HomePage() {
     }
   };
 
-  console.log(travels);
-
   useEffect(() => {
     checkUser();
   }, [user, isAuthenticated]);
@@ -90,17 +87,21 @@ export default function HomePage() {
     <PreviewCard key={travel.id} {...travel} />
   ));
 
+  console.log(travels);
+
   return (
     <>
       <NavigationBar />
-      <div className="flex">
+      <div className="flex w-screen">
         {loading && (
           <div className="text-center">
             <Spinner aria-label="Center-aligned spinner example" />
           </div>
         )}
 
-        <div>{travelPreviews}</div>
+        <div className="w-screen grid grid-cols-1 gap-3 px-10 ">
+          {travelPreviews}
+        </div>
       </div>
     </>
   );
