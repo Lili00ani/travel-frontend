@@ -1,12 +1,11 @@
-import { LogoutButton } from "../components/button/Logout";
 import { UserProvider, UserRContext } from "../providers/userProvider";
 import { useContext, useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useNavigate, Link } from "react-router-dom";
 import { BACKEND_URL } from "../constant";
 import axios from "axios";
-import { Button, Spinner } from "flowbite-react";
-import { Travel } from "../utilities/types";
+import { Spinner } from "flowbite-react";
+import NavigationBar from "../components/NavBar";
 import PreviewCard from "../components/PreviewCard";
 import { PreviewCardProps } from "../components/PreviewCard";
 
@@ -53,7 +52,7 @@ export default function HomePage() {
     }
   };
 
-  const fetchAll = async () => {
+  const fetchTravelPlans = async () => {
     setLoading(true);
     try {
       console.log("fetchalluserId", value?.user.userId!);
@@ -74,15 +73,13 @@ export default function HomePage() {
     }
   };
 
-  console.log(travels);
-
   useEffect(() => {
     checkUser();
   }, [user, isAuthenticated]);
 
   useEffect(() => {
     if (isChecked) {
-      fetchAll();
+      fetchTravelPlans();
     }
   }, [isChecked]);
 
@@ -90,25 +87,22 @@ export default function HomePage() {
     <PreviewCard key={travel.id} {...travel} />
   ));
 
-  //what happens if user is not authenticated?
+  console.log(travels);
 
   return (
-    <div className="flex">
-      {loading && (
-        <div className="text-center">
-          <Spinner aria-label="Center-aligned spinner example" />
+    <>
+      <NavigationBar />
+      <div className="flex w-screen">
+        {loading && (
+          <div className="text-center">
+            <Spinner aria-label="Center-aligned spinner example" />
+          </div>
+        )}
+
+        <div className="w-screen grid grid-cols-1 gap-3 px-10 ">
+          {travelPreviews}
         </div>
-      )}
-      <h1>homePage</h1>
-      <div>
-        <Button as={Link} to="/create">
-          Create Travel
-        </Button>
       </div>
-      <div>{travelPreviews}</div>
-      <div>
-        <LogoutButton />
-      </div>
-    </div>
+    </>
   );
 }

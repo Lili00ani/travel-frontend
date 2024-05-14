@@ -10,7 +10,7 @@ import {
   HiOutlineTable,
 } from "react-icons/hi";
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 
 const customTheme: CustomFlowbiteTheme["sidebar"] = {
   root: {
@@ -95,6 +95,9 @@ const customTheme: CustomFlowbiteTheme["sidebar"] = {
 
 export default function SideBar() {
   const [showSidebar, setShowSidebar] = useState(true);
+  const { id } = useParams();
+
+  console.log(id);
 
   const toggleSidebar = () => {
     setShowSidebar(!showSidebar);
@@ -120,21 +123,21 @@ export default function SideBar() {
                 </Sidebar.Item>
 
                 <Sidebar.Item>Name of the Trip</Sidebar.Item>
-                <NavLink to="/schedule">
+                <NavLink to={`/${id}/schedule`}>
                   <Sidebar.Item icon={HiMap}>Schedule</Sidebar.Item>
                 </NavLink>
-                <NavLink to="day">
+                {/* <NavLink to="day">
                   <Sidebar.Collapse icon={HiCalendar} label="Daily Schedule">
                     <Sidebar.Item href="#">Day 1</Sidebar.Item>
                     <Sidebar.Item href="#">Day 2</Sidebar.Item>
                     <Sidebar.Item href="#">Day 3</Sidebar.Item>
                     <Sidebar.Item href="#">Day 4</Sidebar.Item>
                   </Sidebar.Collapse>
-                </NavLink>
-                <NavLink to="places">
+                </NavLink> */}
+                <NavLink to={`/${id}/places`}>
                   <Sidebar.Item icon={HiLocationMarker}>Places</Sidebar.Item>
                 </NavLink>
-                <NavLink to="organize">
+                <NavLink to={`/${id}/organize`}>
                   <Sidebar.Item icon={HiOutlineTable}>Organize</Sidebar.Item>
                 </NavLink>
               </Sidebar.ItemGroup>
