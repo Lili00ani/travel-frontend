@@ -1,6 +1,6 @@
 import { UserRContext } from "../providers/userProvider";
 import { useContext, useEffect } from "react";
-import MapC from "../components/maps/Map";
+import { MapComponent } from "../components/maps/MapComponent";
 
 export default function PlacesPage() {
   const value = useContext(UserRContext);
@@ -10,7 +10,7 @@ export default function PlacesPage() {
   return (
     <div className="flex">
       <h1>placesPage</h1>
-      <MapC />
+      <MapComponent />
     </div>
   );
 }
