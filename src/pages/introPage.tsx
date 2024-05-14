@@ -16,9 +16,17 @@ export default function IntroPage() {
   }, [isAuthenticated]);
 
   return (
-    <>
+    <div>
       <NavigationBar />
-      <h1>IntroPage</h1>
-    </>
+      <div className="flex flex-col items-center text-center">
+        <p className="font-sans text-4xl font-semibold mt-12 mb-5">
+          Plan, Organize and Travel
+        </p>
+        <p className="font-sans text-1xl">Organize your plans seamlessly</p>
+      </div>
+      <div className="flex justify-center">
+        <img src="walking.gif" className="mt-4" alt="Walking" />
+      </div>
+    </div>
   );
 }
