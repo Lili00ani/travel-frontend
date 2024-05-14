@@ -1,7 +1,9 @@
+import { TravelForm } from "../components/TravelForm";
+
 export default function TravelPage() {
   return (
-    <div className="flex">
-      <h1>travelPage</h1>
+    <div className="flex justify-center">
+      <TravelForm />
     </div>
   );
 }
