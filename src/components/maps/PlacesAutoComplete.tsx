@@ -63,6 +63,12 @@ export const PlacesAutoComplete: React.FC = () => {
               onChange={(e) => setValue(e.target.value)}
               disabled={!ready}
               placeholder="Select Your Location"
+              style={{
+                width: "100%",
+                border: "1px solid black",
+                padding: "0.5rem",
+                borderRadius: "0.25rem",
+              }}
             />
             <ComboboxPopover>
               <ComboboxList>

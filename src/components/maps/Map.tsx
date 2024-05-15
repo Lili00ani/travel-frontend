@@ -7,7 +7,7 @@ export const MapComponent: React.FC<{ place: Place | null }> = ({ place }) => {
 
   const mapContainerStyle = {
     width: "100%",
-    height: "30vh",
+    height: "45vh",
   };
 
   let marker: google.maps.Marker | null = null;
