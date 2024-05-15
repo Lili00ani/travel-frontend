@@ -91,15 +91,17 @@ export default function HomePage() {
   return (
     <>
       <NavigationBar />
-      <div className="flex w-screen">
+      <div className="flex flex-col items-center justify-center w-screen pb-10">
         {loading && (
           <div className="text-center">
             <Spinner aria-label="Center-aligned spinner example" />
           </div>
         )}
-
-        <div className="w-screen grid grid-cols-1 gap-3 px-10 md:grid-cols-3 md:gap-4">
-          {travelPreviews}
+        <div className="flex-col">
+          <h2 className="px-10 my-10 text-4xl">Your Travel Plan</h2>
+          <div className="w-90 grid grid-cols-1 gap-4 mx-10 md:grid-cols-3">
+            {travelPreviews}
+          </div>
         </div>
       </div>
     </>
