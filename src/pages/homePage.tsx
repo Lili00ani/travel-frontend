@@ -98,7 +98,7 @@ export default function HomePage() {
           </div>
         )}
 
-        <div className="w-screen grid grid-cols-1 gap-3 px-10 ">
+        <div className="w-screen grid grid-cols-1 gap-3 px-10 md:grid-cols-3 md:gap-4">
           {travelPreviews}
         </div>
       </div>

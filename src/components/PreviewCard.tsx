@@ -6,7 +6,7 @@ import { TravelCard } from "../utilities/types";
 
 const PreviewCard: FunctionComponent<TravelCard> = (props) => {
   return (
-    <Card href={`./${props.id}/organize`} className="max-w-sm">
+    <Card href={`./${props.id}/organize`} className="w-full h-64 my-5">
       <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
         {props.name}
       </h5>
