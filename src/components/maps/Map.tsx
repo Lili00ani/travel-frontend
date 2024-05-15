@@ -1,50 +1,51 @@
-import {
-  GoogleMap,
-  MarkerF,
-  Marker,
-  useLoadScript,
-} from "@react-google-maps/api";
-import { PlacesAutoComplete } from "./Autocomplete";
+import { GoogleMap, Marker } from "@react-google-maps/api";
+import { Place } from "./PlacesAutoComplete";
 
-const Map = () => {
-  const { isLoaded } = useLoadScript({
-    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY!,
-    libraries: ["places"],
-  });
-
-  const center = { lat: 30.0444, lng: 31.2357 };
+export const MapComponent: React.FC<{ place: Place | null }> = ({ place }) => {
+  const defaultCenter = { lat: 30.0444, lng: 31.2357 };
+  const center = place ? { lat: place.lat, lng: place.lng } : defaultCenter;
 
   const mapContainerStyle = {
     width: "100%",
     height: "30vh",
   };
 
-  const onLoadMarker = (marker: google.maps.Marker) => {
-    console.log("Marker", marker.getPosition()?.lat());
+  let marker: google.maps.Marker | null = null;
+
+  const onLoadMarker = (markerInstance: google.maps.Marker) => {
+    marker = markerInstance;
+    console.log("Marker", marker.getPosition);
   };
 
+  const contentString = `<div>
+    <h2>${place?.description}</h2>
+    <p>${place?.formattedAddress}</p>
+  </div>`;
+
   return (
-    <div>
-      {!isLoaded ? (
-        <h3>Loading…..</h3>
-      ) : (
-        <div className="grid grid-cols-4 gap-4 h-screen">
-          <div className="col-span-1">
-            <PlacesAutoComplete />
-          </div>
-          <div className="col-span-3">
-            <GoogleMap
-              mapContainerClassName="map_container"
-              mapContainerStyle={mapContainerStyle}
-              center={center}
-              zoom={10}
-            >
-              <MarkerF position={center} onLoad={onLoadMarker} />{" "}
-            </GoogleMap>
-          </div>
-        </div>
-      )}
-    </div>
+    <>
+      <GoogleMap
+        mapContainerClassName="map_container"
+        mapContainerStyle={mapContainerStyle}
+        center={center}
+        zoom={15}
+        options={{ disableDefaultUI: true }}
+      >
+        {place && (
+          <Marker
+            position={{ lat: place.lat, lng: place.lng }}
+            onLoad={onLoadMarker}
+            onClick={() => {
+              if (marker) {
+                new google.maps.InfoWindow({
+                  content: contentString,
+                  ariaLabel: "Location",
+                }).open({ anchor: marker });
+              }
+            }}
+          />
+        )}
+      </GoogleMap>
+    </>
   );
 };
-export default Map;
