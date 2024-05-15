@@ -17,7 +17,7 @@ export default function PlacesPage() {
     <>
       {!isLoaded && <Spinner />}
       {isLoaded && (
-        <div className="w-10/12">
+        <div className="w-11/12">
           <PlacesAutoComplete />
         </div>
       )}

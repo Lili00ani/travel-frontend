@@ -11,6 +11,7 @@ import {
 } from "@reach/combobox";
 import { MapComponent } from "./Map";
 import { useState } from "react";
+import { Button } from "flowbite-react";
 
 export interface Place {
   placeId: string;
@@ -30,6 +31,11 @@ export const PlacesAutoComplete: React.FC = () => {
     suggestions: { status, data },
     clearSuggestions,
   } = usePlacesAutocomplete({});
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(e.target.value);
+    setPlace(null);
+  };
 
   const handleSelect = async (address: string) => {
     setValue(address, false);
@@ -60,7 +66,7 @@ export const PlacesAutoComplete: React.FC = () => {
           <Combobox onSelect={handleSelect}>
             <ComboboxInput
               value={value}
-              onChange={(e) => setValue(e.target.value)}
+              onChange={handleInputChange}
               disabled={!ready}
               placeholder="Select Your Location"
               style={{
@@ -79,6 +85,9 @@ export const PlacesAutoComplete: React.FC = () => {
               </ComboboxList>
             </ComboboxPopover>
           </Combobox>
+          {place && (
+            <Button className="flex w-full my-3"> Add to your list</Button>
+          )}
         </div>
         <div className="col-span-3">
           <MapComponent place={place} />
