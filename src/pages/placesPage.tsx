@@ -1,5 +1,6 @@
 import { UserRContext } from "../providers/userProvider";
 import { useContext, useEffect } from "react";
+import Map from "../components/maps/Map";
 
 export default function PlacesPage() {
   const value = useContext(UserRContext);
@@ -7,8 +8,8 @@ export default function PlacesPage() {
   console.log(userId);
 
   return (
-    <div className="flex">
-      <h1>placesPage</h1>
+    <div className="w-10/12">
+      <Map />
     </div>
   );
 }
