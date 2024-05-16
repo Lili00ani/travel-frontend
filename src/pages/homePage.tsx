@@ -6,17 +6,17 @@ import { BACKEND_URL } from "../constant";
 import axios from "axios";
 import { Spinner } from "flowbite-react";
 import NavigationBar from "../components/NavBar";
-import PreviewCard from "../components/PreviewCard";
-import { TravelCard } from "../utilities/types";
+import TravelPreviewCard from "../components/TravelPreviewCard";
+import { Travel } from "../utilities/types";
 
-const initialTravelState: TravelCard[] = [];
+const initialTravelState: Travel[] = [];
 
 export default function HomePage() {
   const value = useContext(UserRContext);
   const { isAuthenticated, getAccessTokenSilently, user } = useAuth0();
   const navigate = useNavigate();
   const [loading, setLoading] = useState<boolean>(false);
-  const [travels, setTravels] = useState<TravelCard[]>(initialTravelState);
+  const [travels, setTravels] = useState<Travel[]>(initialTravelState);
   const [isChecked, setIsChecked] = useState<boolean>(false);
 
   const checkUser = async () => {
@@ -56,7 +56,7 @@ export default function HomePage() {
     try {
       console.log("fetchalluserId", value?.user.userId!);
       const accessToken = await getAccessTokenSilently();
-      const response = await axios.get(`${BACKEND_URL}/travel`, {
+      const response = await axios.get(`${BACKEND_URL}/travel/all`, {
         params: {
           id: value?.user.userId!,
         },
@@ -83,7 +83,7 @@ export default function HomePage() {
   }, [isChecked]);
 
   const travelPreviews = travels.map((travel) => (
-    <PreviewCard key={travel.id} {...travel} />
+    <TravelPreviewCard key={travel.id} {...travel} />
   ));
 
   console.log(travels);
@@ -91,15 +91,17 @@ export default function HomePage() {
   return (
     <>
       <NavigationBar />
-      <div className="flex w-screen">
+      <div className="flex flex-col items-center justify-center w-screen pb-10">
         {loading && (
           <div className="text-center">
             <Spinner aria-label="Center-aligned spinner example" />
           </div>
         )}
-
-        <div className="w-screen grid grid-cols-1 gap-3 px-10 ">
-          {travelPreviews}
+        <div className="flex-col">
+          <h2 className="px-10 my-10 text-4xl">Your Travel Plan</h2>
+          <div className="w-90 grid grid-cols-1 gap-4 mx-10 md:grid-cols-3">
+            {travelPreviews}
+          </div>
         </div>
       </div>
     </>

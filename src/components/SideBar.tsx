@@ -1,4 +1,4 @@
-import { Sidebar } from "flowbite-react";
+import { Sidebar, Spinner } from "flowbite-react";
 import {
   HiCalendar,
   HiChevronDoubleLeft,
@@ -11,16 +11,21 @@ import {
 import { useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import { CustomSideBar } from "./flowbite/SideBar";
+import { useTravel } from "./hooks/useTravel";
 
 export default function SideBar() {
   const [showSidebar, setShowSidebar] = useState(true);
   const { id } = useParams();
+  const { isLoading, travel } = useTravel();
 
   console.log(id);
 
   const toggleSidebar = () => {
     setShowSidebar(!showSidebar);
   };
+  if (isLoading) {
+    return <Spinner />;
+  }
 
   return (
     <div>
@@ -41,7 +46,7 @@ export default function SideBar() {
                   <HiChevronDoubleLeft />
                 </Sidebar.Item>
 
-                <Sidebar.Item>Name of the Trip</Sidebar.Item>
+                <Sidebar.Item>{travel.name}</Sidebar.Item>
                 <NavLink to={`/${id}/schedule`}>
                   <Sidebar.Item icon={HiMap}>Schedule</Sidebar.Item>
                 </NavLink>

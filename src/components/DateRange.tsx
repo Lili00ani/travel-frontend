@@ -1,12 +1,11 @@
 import React from "react";
 
 interface DateRangeProps {
-  startDate: string;
-  endDate: string;
+  startDate: Date;
+  endDate: Date;
 }
 
-const formatDate = (isoString: string): string => {
-  const date = new Date(isoString);
+const formatDate = (date: Date): string => {
   return date.toLocaleDateString("en-GB", {
     day: "2-digit",
     month: "long",
