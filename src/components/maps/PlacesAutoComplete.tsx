@@ -12,8 +12,13 @@ import {
 import { MapComponent } from "./Map";
 import { useState } from "react";
 import { Button } from "flowbite-react";
+import { Place } from "../../utilities/types";
+import { useAuth0 } from "@auth0/auth0-react";
+import { BACKEND_URL } from "../../constant";
+import axios from "axios";
+import { useParams } from "react-router-dom";
 
-export interface Place {
+export interface MapProps {
   placeId: string;
   lat: number;
   lng: number;
@@ -22,7 +27,11 @@ export interface Place {
 }
 
 export const PlacesAutoComplete: React.FC = () => {
-  const [place, setPlace] = useState<Place | null>(null);
+  const [selectedPlace, setSelectedPlace] = useState<MapProps | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [newPlace, setNewPlace] = useState<Place | null>(null);
+  const { getAccessTokenSilently } = useAuth0();
+  const { id } = useParams();
 
   const {
     ready,
@@ -34,7 +43,7 @@ export const PlacesAutoComplete: React.FC = () => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
-    setPlace(null);
+    setSelectedPlace(null);
   };
 
   const handleSelect = async (address: string) => {
@@ -46,16 +55,54 @@ export const PlacesAutoComplete: React.FC = () => {
       console.log(result);
       const { place_id, formatted_address } = result[0];
       const { lat, lng } = await getLatLng(result[0]);
-      const selectedPlace: Place = {
+      const selectedPlace: MapProps = {
         placeId: place_id,
         lat: lat,
         lng: lng,
         description: address,
         formattedAddress: formatted_address,
       };
-      setPlace(selectedPlace);
+      const newToAdd: Place = {
+        travel_id: Number(id),
+        google_places: place_id,
+        lat: lat,
+        lng: lng,
+        notes: "",
+        name: address,
+        address: "",
+      };
+      setSelectedPlace(selectedPlace);
+      setNewPlace(newToAdd);
     } catch (error) {
       console.error("Error getting geocode or lat/lng: ", error);
+    }
+  };
+
+  const handleAdd = async (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ): Promise<void> => {
+    e.preventDefault();
+    const accessToken = await getAccessTokenSilently();
+    setLoading(true);
+    try {
+      await axios.post(
+        `${BACKEND_URL}/place`,
+        { newPlace },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+      // setPlace();
+      setSelectedPlace(null);
+      setNewPlace(null);
+      setValue("");
+      console.log("success");
+      setLoading(false);
+    } catch (error) {
+      console.error(error);
+      setLoading(false);
     }
   };
 
@@ -85,12 +132,14 @@ export const PlacesAutoComplete: React.FC = () => {
               </ComboboxList>
             </ComboboxPopover>
           </Combobox>
-          {place && (
-            <Button className="flex w-full my-3"> Add to your list</Button>
+          {selectedPlace && (
+            <Button onClick={handleAdd} className="flex w-full my-3">
+              Add to your list
+            </Button>
           )}
         </div>
         <div className="col-span-3">
-          <MapComponent place={place} />
+          <MapComponent place={selectedPlace} />
         </div>
       </div>
     </>

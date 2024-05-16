@@ -3,32 +3,41 @@ import React, { useEffect, useState, useContext } from "react";
 import { Travel, Country } from "../utilities/types";
 import axios from "axios";
 import { BACKEND_URL } from "../constant";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { UserRContext } from "../providers/userProvider";
 import { useAuth0 } from "@auth0/auth0-react";
+import { useTravel } from "./hooks/useTravel";
 
 const initialTravelState: Travel = {
+  id: 0,
   owner_id: "",
   name: "",
   start: new Date(),
   end: new Date(),
   pax: 1,
   country_code: "",
+  created_at: new Date(),
+  updated_at: new Date(),
 };
+
 const initialCountriesState: Country[] = [];
 
 export function TravelForm() {
-  const [travel, setTravel] = useState<Travel>(initialTravelState);
+  const [travelState, setTravelState] = useState<Travel>(initialTravelState);
   const [loading, setLoading] = useState<boolean>(false);
   const [countries, setCountries] = useState<Country[]>(initialCountriesState);
   const navigate = useNavigate();
   const value = useContext(UserRContext);
   const { getAccessTokenSilently } = useAuth0();
+  // const { id } = useParams();
+  // const { isLoading, travel } = useTravel();
+
+  console.log(value);
 
   useEffect(() => {
     const fetchUserandCountries = async () => {
       setLoading(true);
-      setTravel({ ...travel, ["owner_id"]: value?.user.userId! });
+      setTravelState({ ...travelState, ["owner_id"]: value?.user.userId! });
       try {
         const response = await axios.get(`${BACKEND_URL}/countries`);
         setCountries(response.data);
@@ -41,32 +50,36 @@ export function TravelForm() {
     fetchUserandCountries();
   }, []);
 
+  // useEffect(() => {
+  //   if (travel) {
+  //     setTravelState(travel);
+  //   }
+  // }, [travel]);
+
   const handleDateChange = (date: Date, fieldName: "start" | "end") => {
-    setTravel({ ...travel, [fieldName]: date });
+    setTravelState({ ...travelState, [fieldName]: date });
   };
+
+  console.log(travelState);
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
-    setTravel({ ...travel, [e.target.name]: e.target.value });
+    setTravelState({ ...travelState, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const accessToken = await getAccessTokenSilently();
-    console.log(accessToken, travel);
+    console.log(accessToken, travelState);
     setLoading(true);
     try {
-      await axios.post(
-        `${BACKEND_URL}/travel`,
-        { travel },
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      );
-      setTravel(initialTravelState);
+      await axios.post(`${BACKEND_URL}/travel`, travelState, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      setTravelState(initialTravelState);
       setLoading(false);
       navigate("/home");
     } catch (error) {
@@ -95,15 +108,16 @@ export function TravelForm() {
             type="name"
             placeholder="Name"
             required
-            value={travel.name}
+            value={travelState.name}
             onChange={handleInputChange}
           />
           <div className="my-1 block">
             <Label htmlFor="date1" value="Start Date" />
           </div>
+
           <Datepicker
             required
-            id="date"
+            id="start-date"
             onSelectedDateChanged={(date) => handleDateChange(date, "start")}
           />
           <div className="my-1 block">
@@ -112,7 +126,7 @@ export function TravelForm() {
           {/* end date cannot be earlier than start date */}
           <Datepicker
             required
-            id="date"
+            id="end-date"
             onSelectedDateChanged={(date) => handleDateChange(date, "end")}
           />
           <div className="my-1 block">
@@ -123,7 +137,7 @@ export function TravelForm() {
             type="number"
             placeholder="1"
             required
-            value={travel.pax}
+            value={travelState.pax}
             onChange={handleInputChange}
           />
           <div className="my-1 block">
@@ -133,7 +147,7 @@ export function TravelForm() {
             id="country_code"
             name="country_code"
             required
-            value={travel.country_code}
+            value={travelState.country_code}
             onChange={handleInputChange}
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg flex w-full"
           >

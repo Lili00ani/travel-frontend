@@ -15,7 +15,7 @@ export default function RouterProvider() {
         <Route path="/" element={<IntroPage />} />
         <Route path="home" element={<HomePage />} />
         <Route path="create" element={<TravelPage />} />
-        <Route path="edit" element={<TravelPage />} />
+        <Route path=":id/edit" element={<TravelPage />} />
         <Route element={<Layout />}>
           <Route path=":id/schedule" element={<SchedulePage />} />
           <Route path=":id/places" element={<PlacesPage />} />

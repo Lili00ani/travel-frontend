@@ -1,7 +1,9 @@
 import { GoogleMap, Marker } from "@react-google-maps/api";
-import { Place } from "./PlacesAutoComplete";
+import { MapProps } from "./PlacesAutoComplete";
 
-export const MapComponent: React.FC<{ place: Place | null }> = ({ place }) => {
+export const MapComponent: React.FC<{ place: MapProps | null }> = ({
+  place,
+}) => {
   const defaultCenter = { lat: 30.0444, lng: 31.2357 };
   const center = place ? { lat: place.lat, lng: place.lng } : defaultCenter;
 
