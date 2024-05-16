@@ -6,7 +6,7 @@ import { BACKEND_URL } from "../constant";
 import axios from "axios";
 import { Spinner } from "flowbite-react";
 import NavigationBar from "../components/NavBar";
-import PreviewCard from "../components/PreviewCard";
+import TravelPreviewCard from "../components/TravelPreviewCard";
 import { Travel } from "../utilities/types";
 
 const initialTravelState: Travel[] = [];
@@ -83,7 +83,7 @@ export default function HomePage() {
   }, [isChecked]);
 
   const travelPreviews = travels.map((travel) => (
-    <PreviewCard key={travel.id} {...travel} />
+    <TravelPreviewCard key={travel.id} {...travel} />
   ));
 
   console.log(travels);

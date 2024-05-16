@@ -3,6 +3,7 @@ import { useContext, useEffect } from "react";
 import { PlacesAutoComplete } from "../components/maps/PlacesAutoComplete";
 import { useLoadScript } from "@react-google-maps/api";
 import { Spinner } from "flowbite-react";
+import { PlacesList } from "../components/place/PlacesList";
 
 export default function PlacesPage() {
   const value = useContext(UserRContext);
@@ -17,8 +18,13 @@ export default function PlacesPage() {
     <>
       {!isLoaded && <Spinner />}
       {isLoaded && (
-        <div className="w-11/12">
-          <PlacesAutoComplete />
+        <div className="flex flex-col">
+          <div className="w-10/12">
+            <PlacesAutoComplete />
+          </div>
+          <div className="w-10/12 my-10">
+            <PlacesList />
+          </div>
         </div>
       )}
     </>

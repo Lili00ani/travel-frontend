@@ -94,11 +94,9 @@ export const PlacesAutoComplete: React.FC = () => {
           },
         }
       );
-      // setPlace();
       setSelectedPlace(null);
       setNewPlace(null);
       setValue("");
-      console.log("success");
       setLoading(false);
     } catch (error) {
       console.error(error);
@@ -108,8 +106,8 @@ export const PlacesAutoComplete: React.FC = () => {
 
   return (
     <>
-      <div className="grid grid-cols-4 gap-4 h-screen">
-        <div className="col-span-1">
+      <div className="w-full grid grid-cols-6 gap-4">
+        <div className="col-span-2">
           <Combobox onSelect={handleSelect}>
             <ComboboxInput
               value={value}
@@ -138,7 +136,7 @@ export const PlacesAutoComplete: React.FC = () => {
             </Button>
           )}
         </div>
-        <div className="col-span-3">
+        <div className="col-span-4">
           <MapComponent place={selectedPlace} />
         </div>
       </div>

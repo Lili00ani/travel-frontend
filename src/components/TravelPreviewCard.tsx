@@ -4,7 +4,7 @@ import React, { FunctionComponent } from "react";
 import DateRangeComponent from "./DateRange";
 import { Travel } from "../utilities/types";
 
-const PreviewCard: FunctionComponent<Travel> = (props) => {
+const TravelPreviewCard: FunctionComponent<Travel> = (props) => {
   const startDate = new Date(props.start);
   const endDate = new Date(props.end);
 
@@ -31,4 +31,4 @@ const PreviewCard: FunctionComponent<Travel> = (props) => {
   );
 };
 
-export default PreviewCard;
+export default TravelPreviewCard;
