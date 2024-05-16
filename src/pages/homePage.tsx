@@ -1,7 +1,7 @@
-import { UserProvider, UserRContext } from "../providers/userProvider";
+import { UserRContext } from "../providers/userProvider";
 import { useContext, useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { BACKEND_URL } from "../constant";
 import axios from "axios";
 import { Spinner } from "flowbite-react";

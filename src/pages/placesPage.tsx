@@ -1,5 +1,5 @@
 import { UserRContext } from "../providers/userProvider";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { PlacesAutoComplete } from "../components/maps/PlacesAutoComplete";
 import { useLoadScript } from "@react-google-maps/api";
 import { Spinner } from "flowbite-react";
