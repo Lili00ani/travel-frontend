@@ -3,7 +3,9 @@ import { useContext } from "react";
 import { PlacesAutoComplete } from "../components/maps/PlacesAutoComplete";
 import { useLoadScript } from "@react-google-maps/api";
 import { Spinner } from "flowbite-react";
-import { PlacesList } from "../components/place/PlacesList";
+import { usePlaces } from "../components/hooks/usePlaces";
+import { PlacePreviewCard } from "../components/place/PlacesPreviewCard";
+import { PlacePreview } from "../utilities/types";
 
 export default function PlacesPage() {
   const value = useContext(UserRContext);
@@ -12,7 +14,7 @@ export default function PlacesPage() {
     libraries: ["places"],
   });
   const userId = value?.user;
-  console.log(userId);
+  const { isLoading, places } = usePlaces();
 
   return (
     <>
@@ -22,8 +24,14 @@ export default function PlacesPage() {
           <div className="w-10/12">
             <PlacesAutoComplete />
           </div>
+          {isLoading && <Spinner />}
           <div className="w-10/12 my-10">
-            <PlacesList />
+            <div className="w-full grid grid-cols-1 gap-4 md:grid-cols-6">
+              {Array.isArray(places) &&
+                places.map((place: PlacePreview) => (
+                  <PlacePreviewCard key={place.id} {...place} />
+                ))}
+            </div>
           </div>
         </div>
       )}

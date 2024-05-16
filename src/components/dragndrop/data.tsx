@@ -57,6 +57,8 @@ export const Data = () => {
 
   //auto create day 1, day 2, day 3, etc.
 
+  //populate the list using itinerary table.
+
   return (
     <div>
       <h1>Hello</h1>
