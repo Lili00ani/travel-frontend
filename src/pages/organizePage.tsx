@@ -1,7 +1,11 @@
+import App from "../components/dragndrop/DnD";
+import { Data } from "../components/dragndrop/data";
+
 export default function OrganizePage() {
   return (
     <div className="flex">
-      <h1>organizePage</h1>
+      <App />
+      <Data />
     </div>
   );
 }

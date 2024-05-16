@@ -24,3 +24,13 @@ export interface Place {
   name: string;
   address: string;
 }
+
+export interface PlacePreview {
+  id: number;
+  google_places: string;
+  lat: number;
+  lng: number;
+  notes: string;
+  name: string;
+  address: string;
+}
