@@ -68,9 +68,8 @@ export function TravelForm() {
         setLoading(false);
       }
     };
-    if (value?.user?.userId) {
-      fetchUserandCountries();
-    }
+
+    fetchUserandCountries();
   }, []);
 
   useEffect(() => {

@@ -6,12 +6,16 @@ export interface PlacePreview {
   id: number;
   name: string;
   onDelete: (id: number) => void;
+  index: number;
 }
 
 export const PlacePreviewCard: FunctionComponent<PlacePreview> = (props) => {
   return (
     <Card className="w-full py-1 px-1 relative">
       <div className="flex flex-col">
+        <div className="absolute top-2 left-2 flex items-center justify-center">
+          {props.index + 1}
+        </div>
         <div className="absolute top-2 right-2">
           <Dropdown inline label="">
             <Dropdown.Item>

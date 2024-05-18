@@ -54,9 +54,10 @@ export default function PlacesPage() {
             <hr className="h-px mt-2 mb-3 bg-gray-200 border-0 dark:bg-gray-700" />
             <div className="w-full grid grid-cols-1 gap-4 md:grid-cols-6">
               {Array.isArray(places) &&
-                places.map((place: PlacePreview) => (
+                places.map((place: PlacePreview, index: number) => (
                   <PlacePreviewCard
                     key={place.id}
+                    index={index}
                     {...place}
                     onDelete={handleDelete}
                   />

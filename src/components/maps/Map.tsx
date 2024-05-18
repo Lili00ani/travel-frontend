@@ -47,11 +47,6 @@ export const MapComponent: React.FC<MapComponentProps> = ({
     console.log("Marker", selectedMarker.getPosition);
   };
 
-  const contentString = `<div>
-    <h2>${place?.description}</h2>
-    <p>${place?.formattedAddress}</p>
-  </div>`;
-
   return (
     <>
       <GoogleMap
@@ -62,13 +57,11 @@ export const MapComponent: React.FC<MapComponentProps> = ({
         onLoad={onLoad}
       >
         {places &&
-          places.map((p) => (
+          places.map((p, index) => (
             <MarkerF
               key={p.id}
               position={{ lat: p.lat, lng: p.lng }}
-              icon={{
-                url: "http://maps.google.com/mapfiles/ms/icons/red-dot.png",
-              }}
+              label={{ text: (index + 1).toString(), color: "white" }}
             />
           ))}
         {place && place.lat !== 0 && (
@@ -76,7 +69,7 @@ export const MapComponent: React.FC<MapComponentProps> = ({
             position={{ lat: place.lat, lng: place.lng }}
             onLoad={onLoadMarker}
             icon={{
-              url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png",
+              url: "http://maps.google.com/mapfiles/ms/icons/red-dot.png",
             }}
           />
         )}
