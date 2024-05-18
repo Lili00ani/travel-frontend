@@ -1,5 +1,5 @@
 import { UserRContext } from "../providers/userProvider";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import {
   PlacesAutoComplete,
   MapProps,
@@ -16,8 +16,12 @@ export default function PlacesPage() {
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY!,
     libraries: ["places"],
   });
-  const { isLoading, places } = usePlaces();
+  const { isLoading, places, fetchAllPlaces } = usePlaces();
   const [selectedPlace, setSelectedPlace] = useState<MapProps | null>(null);
+
+  useEffect(() => {
+    fetchAllPlaces();
+  }, [selectedPlace]);
 
   return (
     <>

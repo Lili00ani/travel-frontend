@@ -5,7 +5,10 @@ export const MapComponent: React.FC<{ place: MapProps | null }> = ({
   place,
 }) => {
   const defaultCenter = { lat: 30.0444, lng: 31.2357 };
-  const center = place ? { lat: place.lat, lng: place.lng } : defaultCenter;
+  const center =
+    place && place.lat !== 0
+      ? { lat: place.lat, lng: place.lng }
+      : defaultCenter;
 
   const mapContainerStyle = {
     width: "100%",
@@ -33,7 +36,7 @@ export const MapComponent: React.FC<{ place: MapProps | null }> = ({
         zoom={15}
         options={{ disableDefaultUI: true }}
       >
-        {place && (
+        {place && place.lat !== 0 && (
           <Marker
             position={{ lat: place.lat, lng: place.lng }}
             onLoad={onLoadMarker}

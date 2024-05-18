@@ -101,7 +101,14 @@ export const PlacesAutoComplete: React.FC<PlacesAutoCompleteProps> = ({
           },
         }
       );
-      setSelectedPlace(null);
+      const empty: MapProps = {
+        placeId: "",
+        lat: 0,
+        lng: 0,
+        description: "",
+        formattedAddress: "",
+      };
+      setSelectedPlace(empty);
       setNewPlace(null);
       setValue("");
       fetchAllPlaces();
