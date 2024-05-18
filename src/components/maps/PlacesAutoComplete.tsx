@@ -1,6 +1,7 @@
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
+  getDetails,
 } from "use-places-autocomplete";
 import {
   Combobox,
@@ -17,6 +18,8 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { BACKEND_URL } from "../../constant";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { log } from "console";
+import { usePlaces } from "../hooks/usePlaces";
 
 export interface MapProps {
   placeId: string;
@@ -32,6 +35,7 @@ export const PlacesAutoComplete: React.FC = () => {
   const [newPlace, setNewPlace] = useState<Place | null>(null);
   const { getAccessTokenSilently } = useAuth0();
   const { id } = useParams();
+  const { fetchAllPlaces } = usePlaces();
 
   const {
     ready,
@@ -52,9 +56,9 @@ export const PlacesAutoComplete: React.FC = () => {
 
     try {
       const result = await getGeocode({ address });
-      console.log(result);
       const { place_id, formatted_address } = result[0];
       const { lat, lng } = await getLatLng(result[0]);
+
       const selectedPlace: MapProps = {
         placeId: place_id,
         lat: lat,
@@ -94,6 +98,7 @@ export const PlacesAutoComplete: React.FC = () => {
           },
         }
       );
+      fetchAllPlaces();
       setSelectedPlace(null);
       setNewPlace(null);
       setValue("");

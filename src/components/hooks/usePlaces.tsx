@@ -32,7 +32,7 @@ export const usePlaces = () => {
   };
   useEffect(() => {
     fetchAllPlaces();
-  }, []);
+  }, [id]);
 
-  return { isLoading, places };
+  return { isLoading, places, fetchAllPlaces };
 };
