@@ -64,12 +64,12 @@ export function TravelForm() {
     fetchUserandCountries();
   }, []);
 
-  useEffect(() => {
-    if (travel) {
-      setTravelState(travel);
-      setDateRange({ startDate: travel.start, endDate: travel.end });
-    }
-  }, [travel]);
+  // useEffect(() => {
+  //   if (travel) {
+  //     setTravelState(travel);
+  //     setDateRange({ startDate: travel.start, endDate: travel.end });
+  //   }
+  // }, [travel]);
 
   const handleDateRangeChange = (newDateRange: DateValueType) => {
     setDateRange(newDateRange);
@@ -101,7 +101,7 @@ export function TravelForm() {
           Authorization: `Bearer ${accessToken}`,
         },
       });
-      // setTravelState(initialTravelState);
+      setTravelState(initialTravelState);
       setLoading(false);
       navigate("/home");
     } catch (error) {
@@ -155,9 +155,6 @@ export function TravelForm() {
           </div>
           <div className="flex-row">
             <Datepicker
-              inputClassName="w-full rounded-md text-black"
-              containerClassName="mt-2 text-black"
-              popoverDirection="up"
               value={dateRange}
               primaryColor={"yellow"}
               onChange={handleDateRangeChange}
