@@ -1,8 +1,16 @@
 import { GoogleMap, Marker } from "@react-google-maps/api";
 import { MapProps } from "./PlacesAutoComplete";
+import { PlacePreview } from "../../utilities/types";
+import { getGeocode, getLatLng } from "use-places-autocomplete";
 
-export const MapComponent: React.FC<{ place: MapProps | null }> = ({
+interface MapComponentProps {
+  place: MapProps | null;
+  places: PlacePreview[];
+}
+
+export const MapComponent: React.FC<MapComponentProps> = ({
   place,
+  places,
 }) => {
   const defaultCenter = { lat: 30.0444, lng: 31.2357 };
   const center =
@@ -15,11 +23,11 @@ export const MapComponent: React.FC<{ place: MapProps | null }> = ({
     height: "45vh",
   };
 
-  let marker: google.maps.Marker | null = null;
+  let selectedMarker: google.maps.Marker | null = null;
 
   const onLoadMarker = (markerInstance: google.maps.Marker) => {
-    marker = markerInstance;
-    console.log("Marker", marker.getPosition);
+    selectedMarker = markerInstance;
+    console.log("Marker", selectedMarker.getPosition);
   };
 
   // const contentString = `<div>
@@ -36,6 +44,10 @@ export const MapComponent: React.FC<{ place: MapProps | null }> = ({
         zoom={15}
         options={{ disableDefaultUI: true }}
       >
+        {places &&
+          places.map((p) => (
+            <Marker key={p.id} position={{ lat: p.lat, lng: p.lng }} />
+          ))}
         {place && place.lat !== 0 && (
           <Marker
             position={{ lat: place.lat, lng: place.lng }}

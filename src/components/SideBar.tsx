@@ -14,8 +14,15 @@ import { CustomSideBar } from "./flowbite/SideBar";
 import { useTravel } from "./hooks/useTravel";
 import DateRangeComponent from "./DateRange";
 
-export default function SideBar() {
-  const [showSidebar, setShowSidebar] = useState(true);
+interface SideBarProps {
+  showSidebar: boolean;
+  setShowSidebar: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export const SideBar: React.FC<SideBarProps> = ({
+  showSidebar,
+  setShowSidebar,
+}) => {
   const { id } = useParams();
   const { isLoading, travel } = useTravel();
   const startDate = new Date(travel.start);
@@ -31,7 +38,7 @@ export default function SideBar() {
   }
 
   return (
-    <div>
+    <div className="fixed top-0 left-0 h-full z-50">
       {!showSidebar && (
         <div className="px-3 py-3 text-xl">
           <button onClick={toggleSidebar}>
@@ -83,4 +90,4 @@ export default function SideBar() {
       </div>
     </div>
   );
-}
+};

@@ -23,6 +23,9 @@ export default function PlacesPage() {
     fetchAllPlaces();
   }, [selectedPlace]);
 
+  console.log("isLoading:", isLoading);
+  console.log("places:", places);
+
   return (
     <>
       {!isLoaded && <Spinner />}
@@ -34,7 +37,9 @@ export default function PlacesPage() {
                 <PlacesAutoComplete setSelectedPlace={setSelectedPlace} />
               </div>
               <div className="col-span-4">
-                <MapComponent place={selectedPlace} />
+                {!isLoading && (
+                  <MapComponent place={selectedPlace} places={places} />
+                )}
               </div>
             </div>
           </div>

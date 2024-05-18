@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom";
 
 export const usePlaces = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [places, setPlaces] = useState<PlacePreview>();
+  const [places, setPlaces] = useState<PlacePreview[]>([]);
   const { getAccessTokenSilently } = useAuth0();
   const { id } = useParams();
 
