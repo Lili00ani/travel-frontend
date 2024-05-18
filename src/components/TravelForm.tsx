@@ -48,10 +48,17 @@ export function TravelForm() {
   const { isLoading, travel } = useTravel();
   const [openModal, setOpenModal] = useState(false);
 
+  console.log(value);
+
   useEffect(() => {
     const fetchUserandCountries = async () => {
       setLoading(true);
-      setTravelState({ ...travelState, ["owner_id"]: value?.user.userId! });
+      if (value!.user!.userId) {
+        setTravelState((prevState) => ({
+          ...prevState,
+          owner_id: value!.user.userId,
+        }));
+      }
       try {
         const response = await axios.get(`${BACKEND_URL}/countries`);
         setCountries(response.data);
@@ -61,7 +68,9 @@ export function TravelForm() {
         setLoading(false);
       }
     };
-    fetchUserandCountries();
+    if (value?.user?.userId) {
+      fetchUserandCountries();
+    }
   }, []);
 
   useEffect(() => {

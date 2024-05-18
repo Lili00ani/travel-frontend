@@ -18,6 +18,7 @@ import { BACKEND_URL } from "../../constant";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { usePlaces } from "../hooks/usePlaces";
+import { useTravel } from "../hooks/useTravel";
 
 export interface MapProps {
   placeId: string;
@@ -39,6 +40,7 @@ export const PlacesAutoComplete: React.FC<PlacesAutoCompleteProps> = ({
   const { getAccessTokenSilently } = useAuth0();
   const { id } = useParams();
   const { fetchAllPlaces } = usePlaces();
+  const { isLoading, travel } = useTravel();
 
   const {
     ready,
@@ -46,7 +48,11 @@ export const PlacesAutoComplete: React.FC<PlacesAutoCompleteProps> = ({
     setValue,
     suggestions: { status, data },
     clearSuggestions,
-  } = usePlacesAutocomplete({});
+  } = usePlacesAutocomplete({
+    requestOptions: {
+      componentRestrictions: { country: travel && travel!.country_code },
+    },
+  });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
