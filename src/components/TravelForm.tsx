@@ -1,4 +1,4 @@
-import { Button, Label, Spinner, TextInput } from "flowbite-react";
+import { Button, Label, Spinner, TextInput, Modal } from "flowbite-react";
 import Datepicker from "react-tailwindcss-datepicker";
 import React, { useEffect, useState, useContext } from "react";
 import { Travel, Country } from "../utilities/types";
@@ -8,6 +8,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { UserRContext } from "../providers/userProvider";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useTravel } from "./hooks/useTravel";
+import { HiOutlineExclamationCircle, HiArrowLeft } from "react-icons/hi";
 
 const initialTravelState: Travel = {
   id: 0,
@@ -45,6 +46,7 @@ export function TravelForm() {
   });
   const { id } = useParams();
   const { isLoading, travel } = useTravel();
+  const [openModal, setOpenModal] = useState(false);
 
   useEffect(() => {
     const fetchUserandCountries = async () => {
@@ -140,6 +142,8 @@ export function TravelForm() {
     }
   };
 
+  console.log(travelState);
+
   return (
     <>
       {loading && (
@@ -147,11 +151,15 @@ export function TravelForm() {
           <Spinner aria-label="Center-aligned spinner example" />
         </div>
       )}
+
       <form
         className="flex-col gap-4 w-10/12 md:w-6/12 lg:w-5/12 my-10"
         onSubmit={handleSubmit}
       >
         <div>
+          <button type="button" onClick={() => navigate("/home")}>
+            <HiArrowLeft />
+          </button>
           <div className="my-1 block">
             <Label htmlFor="name1" value="Travel Plan Name" />
           </div>
@@ -212,13 +220,38 @@ export function TravelForm() {
             <Button
               className="my-3 flex w-full"
               type="button"
-              onClick={handleDelete}
+              onClick={() => setOpenModal(true)}
             >
               Delete
             </Button>
           )}
         </div>
       </form>
+
+      <Modal
+        show={openModal}
+        size="md"
+        onClose={() => setOpenModal(false)}
+        popup
+      >
+        <Modal.Header />
+        <Modal.Body>
+          <div className="text-center">
+            <HiOutlineExclamationCircle className="mx-auto mb-4 h-14 w-14 text-gray-400 dark:text-gray-200" />
+            <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+              Are you sure you want to delete this product?
+            </h3>
+            <div className="flex justify-center gap-4">
+              <Button color="failure" onClick={handleDelete}>
+                {"Yes, I'm sure"}
+              </Button>
+              <Button color="gray" onClick={() => setOpenModal(false)}>
+                No, cancel
+              </Button>
+            </div>
+          </div>
+        </Modal.Body>
+      </Modal>
     </>
   );
 }
