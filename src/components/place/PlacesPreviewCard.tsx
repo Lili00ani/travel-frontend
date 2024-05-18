@@ -31,7 +31,7 @@ export const PlacePreviewCard: FunctionComponent<PlacePreview> = (props) => {
         </div>
         <div>
           <h5 className="line-clamp-3 text-1xl leading-none text-gray-900 dark:text-white mb-2">
-            {props.name}
+            <a href={`./places/${props.id}`}>{props.name}</a>
           </h5>
           <p className="text-sm leading-none text-gray-900 dark:text-white">
             category

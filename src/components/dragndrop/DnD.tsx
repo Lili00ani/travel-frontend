@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Column from "./Column";
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
+import { initialColumns } from "./data";
 
 interface ColumnType {
   id: string;
@@ -12,24 +13,6 @@ interface ColumnsType {
 }
 
 function App() {
-  const initialColumns = {
-    saved: {
-      id: "saved",
-      list: [],
-    },
-    1: {
-      id: "1",
-      list: ["item 1", "item 2", "item 3"],
-    },
-    2: {
-      id: "2",
-      list: [],
-    },
-    3: {
-      id: "3",
-      list: [],
-    },
-  };
   const [columns, setColumns] = useState<ColumnsType>(initialColumns);
 
   const onDragEnd = ({ source, destination }: DropResult) => {

@@ -10,7 +10,7 @@ import {
   ComboboxList,
   ComboboxOption,
 } from "@reach/combobox";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "flowbite-react";
 import { Place } from "../../utilities/types";
 import { useAuth0 } from "@auth0/auth0-react";
