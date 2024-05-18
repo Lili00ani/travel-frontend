@@ -34,5 +34,22 @@ export const usePlaces = () => {
     fetchAllPlaces();
   }, [id]);
 
-  return { isLoading, places, fetchAllPlaces };
+  const deletePlace = async (placeId: number) => {
+    setIsLoading(true);
+    try {
+      const accessToken = await getAccessTokenSilently();
+      console.log(placeId);
+      await axios.delete(`${BACKEND_URL}/place/${placeId}`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return { isLoading, places, fetchAllPlaces, deletePlace };
 };

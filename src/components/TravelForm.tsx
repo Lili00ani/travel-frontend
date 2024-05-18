@@ -62,7 +62,7 @@ export function TravelForm() {
       }
     };
     fetchUserandCountries();
-  }, [id]);
+  }, []);
 
   useEffect(() => {
     const fetchExistingTravel = async () => {

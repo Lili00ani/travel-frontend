@@ -3,13 +3,13 @@ import usePlacesAutocomplete, {
   getLatLng,
   getDetails,
 } from "use-places-autocomplete";
-// import {
-//   Combobox,
-//   ComboboxInput,
-//   ComboboxPopover,
-//   ComboboxList,
-//   ComboboxOption,
-// } from "@reach/combobox";
+import {
+  Combobox,
+  ComboboxInput,
+  ComboboxPopover,
+  ComboboxList,
+  ComboboxOption,
+} from "@reach/combobox";
 import { useState } from "react";
 import { Button } from "flowbite-react";
 import { Place } from "../../utilities/types";
@@ -85,12 +85,15 @@ export const PlacesAutoComplete: React.FC<PlacesAutoCompleteProps> = ({
     }
   };
 
+  console.log(newPlace);
+
   const handleAdd = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ): Promise<void> => {
     e.preventDefault();
     const accessToken = await getAccessTokenSilently();
     setLoading(true);
+    console.log(newPlace);
     try {
       await axios.post(
         `${BACKEND_URL}/place`,
@@ -122,7 +125,7 @@ export const PlacesAutoComplete: React.FC<PlacesAutoCompleteProps> = ({
   return (
     <div className="w-full">
       <div>
-        {/* <Combobox onSelect={handleSelect}>
+        <Combobox onSelect={handleSelect}>
           <ComboboxInput
             value={value}
             onChange={handleInputChange}
@@ -143,7 +146,7 @@ export const PlacesAutoComplete: React.FC<PlacesAutoCompleteProps> = ({
                 ))}
             </ComboboxList>
           </ComboboxPopover>
-        </Combobox> */}
+        </Combobox>
         {newPlace && (
           <Button onClick={handleAdd} className="flex w-full my-3">
             Add to your list

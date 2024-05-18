@@ -16,7 +16,7 @@ export default function PlacesPage() {
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY!,
     libraries: ["places"],
   });
-  const { isLoading, places, fetchAllPlaces } = usePlaces();
+  const { isLoading, places, fetchAllPlaces, deletePlace } = usePlaces();
   const [selectedPlace, setSelectedPlace] = useState<MapProps | null>(null);
 
   useEffect(() => {
@@ -25,6 +25,11 @@ export default function PlacesPage() {
 
   console.log("isLoading:", isLoading);
   console.log("places:", places);
+
+  const handleDelete = async (id: number) => {
+    await deletePlace(id);
+    fetchAllPlaces();
+  };
 
   return (
     <>
@@ -50,7 +55,11 @@ export default function PlacesPage() {
             <div className="w-full grid grid-cols-1 gap-4 md:grid-cols-6">
               {Array.isArray(places) &&
                 places.map((place: PlacePreview) => (
-                  <PlacePreviewCard key={place.id} {...place} />
+                  <PlacePreviewCard
+                    key={place.id}
+                    {...place}
+                    onDelete={handleDelete}
+                  />
                 ))}
             </div>
           </div>

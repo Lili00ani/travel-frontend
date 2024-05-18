@@ -44,10 +44,10 @@ export const MapComponent: React.FC<MapComponentProps> = ({
         zoom={15}
         options={{ disableDefaultUI: true }}
       >
-        {places &&
+        {/* {places &&
           places.map((p) => (
             <Marker key={p.id} position={{ lat: p.lat, lng: p.lng }} />
-          ))}
+          ))} */}
         {place && place.lat !== 0 && (
           <Marker
             position={{ lat: place.lat, lng: place.lng }}
