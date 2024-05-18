@@ -53,7 +53,6 @@ export const MapComponent: React.FC<MapComponentProps> = ({
         mapContainerClassName="map_container"
         mapContainerStyle={mapContainerStyle}
         zoom={14}
-        options={{ disableDefaultUI: true }}
         onLoad={onLoad}
       >
         {places &&
@@ -70,6 +69,7 @@ export const MapComponent: React.FC<MapComponentProps> = ({
             onLoad={onLoadMarker}
             icon={{
               url: "http://maps.google.com/mapfiles/ms/icons/red-dot.png",
+              scaledSize: new google.maps.Size(45, 45),
             }}
           />
         )}

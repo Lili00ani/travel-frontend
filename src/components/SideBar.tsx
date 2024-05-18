@@ -57,10 +57,11 @@ export const SideBar: React.FC<SideBarProps> = ({
                 </Sidebar.Item>
 
                 <Sidebar.Item>
-                  {travel.name}
+                  <strong>{travel.name}</strong>
                   <DateRangeComponent startDate={startDate} endDate={endDate} />
                 </Sidebar.Item>
-
+              </Sidebar.ItemGroup>
+              <Sidebar.ItemGroup>
                 <NavLink to={`/${id}/schedule`}>
                   <Sidebar.Item icon={HiMap}>Schedule</Sidebar.Item>
                 </NavLink>
