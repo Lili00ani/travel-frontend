@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom";
 
 export const usePlaces = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [places, setPlaces] = useState<PlacePreview>();
+  const [places, setPlaces] = useState<PlacePreview[]>([]);
   const { getAccessTokenSilently } = useAuth0();
   const { id } = useParams();
 
@@ -32,7 +32,24 @@ export const usePlaces = () => {
   };
   useEffect(() => {
     fetchAllPlaces();
-  }, []);
+  }, [id]);
 
-  return { isLoading, places };
+  const deletePlace = async (placeId: number) => {
+    setIsLoading(true);
+    try {
+      const accessToken = await getAccessTokenSilently();
+      console.log(placeId);
+      await axios.delete(`${BACKEND_URL}/place/${placeId}`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return { isLoading, places, fetchAllPlaces, deletePlace };
 };

@@ -7,6 +7,7 @@ import SchedulePage from "../pages/schedulePage";
 import PlacesPage from "../pages/placesPage";
 import TravelPage from "../pages/travelPage";
 import Layout from "../components/Layout";
+import DetailPage from "../pages/detailPage";
 
 export default function RouterProvider() {
   return (
@@ -19,6 +20,7 @@ export default function RouterProvider() {
         <Route element={<Layout />}>
           <Route path=":id/schedule" element={<SchedulePage />} />
           <Route path=":id/places" element={<PlacesPage />} />
+          <Route path=":id/places/:id2" element={<DetailPage />} />
           <Route path=":id/organize" element={<OrganizePage />} />
           <Route path=":id/day" element={<DailyPage />} />
         </Route>

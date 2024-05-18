@@ -2,7 +2,7 @@ import type { CustomFlowbiteTheme } from "flowbite-react";
 
 export const CustomSideBar: CustomFlowbiteTheme["sidebar"] = {
   root: {
-    base: "h-screen",
+    base: "h-full",
     collapsed: {
       on: "w-16",
       off: "w-64",

@@ -10,15 +10,15 @@ export const initialColumns = {
     id: "saved",
     list: [],
   },
-  Day1: {
+  1: {
     id: "1",
-    list: [],
+    list: ["item 1", "item 2", "item 3"],
   },
-  Day2: {
+  2: {
     id: "2",
     list: [],
   },
-  Day3: {
+  3: {
     id: "3",
     list: [],
   },
@@ -56,6 +56,8 @@ export const Data = () => {
   }, [id]);
 
   //auto create day 1, day 2, day 3, etc.
+
+  //populate the list using itinerary table.
 
   return (
     <div>

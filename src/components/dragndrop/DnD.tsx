@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Column from "./Column";
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
+import { initialColumns } from "./data";
 
 interface ColumnType {
   id: string;
@@ -12,28 +13,11 @@ interface ColumnsType {
 }
 
 function App() {
-  const initialColumns = {
-    saved: {
-      id: "saved",
-      list: [],
-    },
-    todo: {
-      id: "todo",
-      list: ["item 1", "item 2", "item 3"],
-    },
-    doing: {
-      id: "doing",
-      list: [],
-    },
-    done: {
-      id: "done",
-      list: [],
-    },
-  };
   const [columns, setColumns] = useState<ColumnsType>(initialColumns);
 
   const onDragEnd = ({ source, destination }: DropResult) => {
     // Make sure we have a valid destination
+
     if (destination === undefined || destination === null) return null;
 
     // Make sure we're actually moving the item
@@ -46,6 +30,11 @@ function App() {
     // Set start and end variables
     const start = columns[source.droppableId];
     const end = columns[destination.droppableId];
+
+    console.log("Start", start);
+    console.log("End", end);
+
+    if (!start || !end) return;
 
     // If start is the same as end, we're in the same column
     if (start === end) {

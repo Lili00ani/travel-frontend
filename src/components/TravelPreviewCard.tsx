@@ -3,6 +3,7 @@ import { Card } from "flowbite-react";
 import React, { FunctionComponent } from "react";
 import DateRangeComponent from "./DateRange";
 import { Travel } from "../utilities/types";
+import { MdEdit } from "react-icons/md";
 
 const TravelPreviewCard: FunctionComponent<Travel> = (props) => {
   const startDate = new Date(props.start);
@@ -18,7 +19,7 @@ const TravelPreviewCard: FunctionComponent<Travel> = (props) => {
           href={`./${props.id}/edit`}
           className="text-sm font-medium text-cyan-600 hover:underline dark:text-cyan-500"
         >
-          Edit
+          <MdEdit size={24} />
         </a>
       </div>
       <p className="font-normal text-gray-700 dark:text-gray-400">

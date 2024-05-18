@@ -1,4 +1,5 @@
-import { Button, Datepicker, Label, Spinner, TextInput } from "flowbite-react";
+import { Button, Label, Spinner, TextInput, Modal } from "flowbite-react";
+import Datepicker from "react-tailwindcss-datepicker";
 import React, { useEffect, useState, useContext } from "react";
 import { Travel, Country } from "../utilities/types";
 import axios from "axios";
@@ -7,6 +8,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { UserRContext } from "../providers/userProvider";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useTravel } from "./hooks/useTravel";
+import { HiOutlineExclamationCircle, HiArrowLeft } from "react-icons/hi";
 
 const initialTravelState: Travel = {
   id: 0,
@@ -20,6 +22,15 @@ const initialTravelState: Travel = {
   updated_at: new Date(),
 };
 
+export type DateType = string | null | Date;
+
+export type DateRangeType = {
+  startDate: DateType;
+  endDate: DateType;
+};
+
+export type DateValueType = DateRangeType | null;
+
 const initialCountriesState: Country[] = [];
 
 export function TravelForm() {
@@ -29,15 +40,25 @@ export function TravelForm() {
   const navigate = useNavigate();
   const value = useContext(UserRContext);
   const { getAccessTokenSilently } = useAuth0();
-  // const { id } = useParams();
-  // const { isLoading, travel } = useTravel();
+  const [dateRange, setDateRange] = useState<DateValueType>({
+    startDate: null,
+    endDate: null,
+  });
+  const { id } = useParams();
+  const { isLoading, travel } = useTravel();
+  const [openModal, setOpenModal] = useState(false);
 
   console.log(value);
 
   useEffect(() => {
     const fetchUserandCountries = async () => {
       setLoading(true);
-      setTravelState({ ...travelState, ["owner_id"]: value?.user.userId! });
+      if (value!.user!.userId) {
+        setTravelState((prevState) => ({
+          ...prevState,
+          owner_id: value!.user.userId,
+        }));
+      }
       try {
         const response = await axios.get(`${BACKEND_URL}/countries`);
         setCountries(response.data);
@@ -47,20 +68,30 @@ export function TravelForm() {
         setLoading(false);
       }
     };
+
     fetchUserandCountries();
   }, []);
 
-  // useEffect(() => {
-  //   if (travel) {
-  //     setTravelState(travel);
-  //   }
-  // }, [travel]);
+  useEffect(() => {
+    const fetchExistingTravel = async () => {
+      if (travel) {
+        setTravelState(travel);
+        setDateRange({ startDate: travel.start, endDate: travel.end });
+      }
+    };
+    fetchExistingTravel();
+  }, [travel]);
 
-  const handleDateChange = (date: Date, fieldName: "start" | "end") => {
-    setTravelState({ ...travelState, [fieldName]: date });
+  const handleDateRangeChange = (newDateRange: DateValueType) => {
+    setDateRange(newDateRange);
+    if (newDateRange?.startDate && newDateRange?.endDate) {
+      setTravelState({
+        ...travelState,
+        start: new Date(newDateRange.startDate),
+        end: new Date(newDateRange.endDate),
+      });
+    }
   };
-
-  console.log(travelState);
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -74,11 +105,25 @@ export function TravelForm() {
     console.log(accessToken, travelState);
     setLoading(true);
     try {
-      await axios.post(`${BACKEND_URL}/travel`, travelState, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
+      if (travelState.id !== 0) {
+        // Update existing travel plan
+        await axios.put(
+          `${BACKEND_URL}/travel/${travelState.id}`,
+          travelState,
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+      } else {
+        // Create new travel plan
+        await axios.post(`${BACKEND_URL}/travel`, travelState, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        });
+      }
       setTravelState(initialTravelState);
       setLoading(false);
       navigate("/home");
@@ -88,6 +133,25 @@ export function TravelForm() {
     }
   };
 
+  const handleDelete = async () => {
+    const accessToken = await getAccessTokenSilently();
+    setLoading(true);
+    try {
+      await axios.delete(`${BACKEND_URL}/travel/${travelState.id}`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      setLoading(false);
+      navigate("/home");
+    } catch (error) {
+      console.error(error);
+      setLoading(false);
+    }
+  };
+
+  console.log(travelState);
+
   return (
     <>
       {loading && (
@@ -95,11 +159,15 @@ export function TravelForm() {
           <Spinner aria-label="Center-aligned spinner example" />
         </div>
       )}
+
       <form
-        className="flex-col gap-4 w-9/12 md:w-6/12 lg:w-4/12 my-10"
+        className="flex-col gap-4 w-10/12 md:w-6/12 lg:w-5/12 my-10"
         onSubmit={handleSubmit}
       >
         <div>
+          <button type="button" onClick={() => navigate("/home")}>
+            <HiArrowLeft />
+          </button>
           <div className="my-1 block">
             <Label htmlFor="name1" value="Travel Plan Name" />
           </div>
@@ -114,21 +182,14 @@ export function TravelForm() {
           <div className="my-1 block">
             <Label htmlFor="date1" value="Start Date" />
           </div>
-
-          <Datepicker
-            required
-            id="start-date"
-            onSelectedDateChanged={(date) => handleDateChange(date, "start")}
-          />
-          <div className="my-1 block">
-            <Label htmlFor="date1" value="End Date" />
+          <div className="flex-row">
+            <Datepicker
+              value={dateRange}
+              primaryColor={"yellow"}
+              onChange={handleDateRangeChange}
+            />
           </div>
-          {/* end date cannot be earlier than start date */}
-          <Datepicker
-            required
-            id="end-date"
-            onSelectedDateChanged={(date) => handleDateChange(date, "end")}
-          />
+
           <div className="my-1 block">
             <Label htmlFor="name1" value="Number of Pax" />
           </div>
@@ -159,10 +220,46 @@ export function TravelForm() {
             ))}
           </select>
         </div>
-        <Button className="my-10 flex w-full" type="submit">
-          Submit
-        </Button>
+        <div>
+          <Button className="my-3 flex w-full" type="submit">
+            Save
+          </Button>
+          {travel && (
+            <Button
+              className="my-3 flex w-full"
+              type="button"
+              onClick={() => setOpenModal(true)}
+            >
+              Delete
+            </Button>
+          )}
+        </div>
       </form>
+
+      <Modal
+        show={openModal}
+        size="md"
+        onClose={() => setOpenModal(false)}
+        popup
+      >
+        <Modal.Header />
+        <Modal.Body>
+          <div className="text-center">
+            <HiOutlineExclamationCircle className="mx-auto mb-4 h-14 w-14 text-gray-400 dark:text-gray-200" />
+            <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+              Are you sure you want to delete this product?
+            </h3>
+            <div className="flex justify-center gap-4">
+              <Button color="failure" onClick={handleDelete}>
+                {"Yes, I'm sure"}
+              </Button>
+              <Button color="gray" onClick={() => setOpenModal(false)}>
+                No, cancel
+              </Button>
+            </div>
+          </div>
+        </Modal.Body>
+      </Modal>
     </>
   );
 }

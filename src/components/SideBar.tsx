@@ -12,11 +12,21 @@ import { useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import { CustomSideBar } from "./flowbite/SideBar";
 import { useTravel } from "./hooks/useTravel";
+import DateRangeComponent from "./DateRange";
 
-export default function SideBar() {
-  const [showSidebar, setShowSidebar] = useState(true);
+interface SideBarProps {
+  showSidebar: boolean;
+  setShowSidebar: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export const SideBar: React.FC<SideBarProps> = ({
+  showSidebar,
+  setShowSidebar,
+}) => {
   const { id } = useParams();
   const { isLoading, travel } = useTravel();
+  const startDate = new Date(travel.start);
+  const endDate = new Date(travel.end);
 
   console.log(id);
 
@@ -28,7 +38,7 @@ export default function SideBar() {
   }
 
   return (
-    <div>
+    <div className="fixed top-0 left-0 h-full z-50">
       {!showSidebar && (
         <div className="px-3 py-3 text-xl">
           <button onClick={toggleSidebar}>
@@ -37,7 +47,7 @@ export default function SideBar() {
         </div>
       )}
 
-      <div className="px-0 py-0">
+      <div className="px-0 py-0 h-dvh">
         {showSidebar && (
           <Sidebar theme={CustomSideBar} aria-label="travel">
             <Sidebar.Items>
@@ -46,7 +56,12 @@ export default function SideBar() {
                   <HiChevronDoubleLeft />
                 </Sidebar.Item>
 
-                <Sidebar.Item>{travel.name}</Sidebar.Item>
+                <Sidebar.Item>
+                  <strong>{travel.name}</strong>
+                  <DateRangeComponent startDate={startDate} endDate={endDate} />
+                </Sidebar.Item>
+              </Sidebar.ItemGroup>
+              <Sidebar.ItemGroup>
                 <NavLink to={`/${id}/schedule`}>
                   <Sidebar.Item icon={HiMap}>Schedule</Sidebar.Item>
                 </NavLink>
@@ -76,4 +91,4 @@ export default function SideBar() {
       </div>
     </div>
   );
-}
+};
