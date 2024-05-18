@@ -40,7 +40,7 @@ export default function SideBar() {
         </div>
       )}
 
-      <div className="px-0 py-0">
+      <div className="px-0 py-0 h-dvh">
         {showSidebar && (
           <Sidebar theme={CustomSideBar} aria-label="travel">
             <Sidebar.Items>

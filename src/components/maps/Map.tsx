@@ -22,10 +22,10 @@ export const MapComponent: React.FC<{ place: MapProps | null }> = ({
     console.log("Marker", marker.getPosition);
   };
 
-  const contentString = `<div>
-    <h2>${place?.description}</h2>
-    <p>${place?.formattedAddress}</p>
-  </div>`;
+  // const contentString = `<div>
+  //   <h2>${place?.description}</h2>
+  //   <p>${place?.formattedAddress}</p>
+  // </div>`;
 
   return (
     <>
@@ -40,14 +40,14 @@ export const MapComponent: React.FC<{ place: MapProps | null }> = ({
           <Marker
             position={{ lat: place.lat, lng: place.lng }}
             onLoad={onLoadMarker}
-            onClick={() => {
-              if (marker) {
-                new google.maps.InfoWindow({
-                  content: contentString,
-                  ariaLabel: "Location",
-                }).open({ anchor: marker });
-              }
-            }}
+            // onClick={() => {
+            //   if (marker) {
+            //     new google.maps.InfoWindow({
+            //       content: contentString,
+            //       ariaLabel: "Location",
+            //     }).open({ anchor: marker });
+            //   }
+            // }}
           />
         )}
       </GoogleMap>

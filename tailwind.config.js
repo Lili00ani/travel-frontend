@@ -9,6 +9,9 @@ module.exports = {
         90: "90vw",
         80: "80vw",
       },
+      height: {
+        1000: "300vh",
+      },
     },
   },
   plugins: [flowbite.plugin()],
