@@ -46,8 +46,6 @@ export function TravelForm() {
   const { id } = useParams();
   const { isLoading, travel } = useTravel();
 
-  console.log(value);
-
   useEffect(() => {
     const fetchUserandCountries = async () => {
       setLoading(true);
@@ -62,14 +60,17 @@ export function TravelForm() {
       }
     };
     fetchUserandCountries();
-  }, []);
+  }, [id]);
 
-  // useEffect(() => {
-  //   if (travel) {
-  //     setTravelState(travel);
-  //     setDateRange({ startDate: travel.start, endDate: travel.end });
-  //   }
-  // }, [travel]);
+  useEffect(() => {
+    const fetchExistingTravel = async () => {
+      if (travel) {
+        setTravelState(travel);
+        setDateRange({ startDate: travel.start, endDate: travel.end });
+      }
+    };
+    fetchExistingTravel();
+  }, [travel]);
 
   const handleDateRangeChange = (newDateRange: DateValueType) => {
     setDateRange(newDateRange);
@@ -81,8 +82,6 @@ export function TravelForm() {
       });
     }
   };
-
-  console.log(travelState);
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -96,11 +95,25 @@ export function TravelForm() {
     console.log(accessToken, travelState);
     setLoading(true);
     try {
-      await axios.post(`${BACKEND_URL}/travel`, travelState, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
+      if (travelState.id !== 0) {
+        // Update existing travel plan
+        await axios.put(
+          `${BACKEND_URL}/travel/${travelState.id}`,
+          travelState,
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+      } else {
+        // Create new travel plan
+        await axios.post(`${BACKEND_URL}/travel`, travelState, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        });
+      }
       setTravelState(initialTravelState);
       setLoading(false);
       navigate("/home");
@@ -193,7 +206,7 @@ export function TravelForm() {
         </div>
         <div>
           <Button className="my-3 flex w-full" type="submit">
-            Submit
+            Save
           </Button>
           {travel && (
             <Button
