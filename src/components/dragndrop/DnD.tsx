@@ -17,16 +17,16 @@ function App() {
       id: "saved",
       list: [],
     },
-    todo: {
-      id: "todo",
+    1: {
+      id: "1",
       list: ["item 1", "item 2", "item 3"],
     },
-    doing: {
-      id: "doing",
+    2: {
+      id: "2",
       list: [],
     },
-    done: {
-      id: "done",
+    3: {
+      id: "3",
       list: [],
     },
   };
@@ -34,6 +34,7 @@ function App() {
 
   const onDragEnd = ({ source, destination }: DropResult) => {
     // Make sure we have a valid destination
+
     if (destination === undefined || destination === null) return null;
 
     // Make sure we're actually moving the item
@@ -46,6 +47,11 @@ function App() {
     // Set start and end variables
     const start = columns[source.droppableId];
     const end = columns[destination.droppableId];
+
+    console.log("Start", start);
+    console.log("End", end);
+
+    if (!start || !end) return;
 
     // If start is the same as end, we're in the same column
     if (start === end) {

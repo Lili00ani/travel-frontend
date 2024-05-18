@@ -11,6 +11,7 @@ const Item: React.FC<ItemProps> = ({ text, index }) => {
     <Draggable draggableId={text} index={index}>
       {(provided) => (
         <div
+          className="px-2 py-2  bg-gray-500 mb-2"
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}

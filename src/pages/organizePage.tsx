@@ -5,7 +5,7 @@ export default function OrganizePage() {
   return (
     <div className="flex">
       <App />
-      <Data />
+      {/* <Data /> */}
     </div>
   );
 }
