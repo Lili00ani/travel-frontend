@@ -12,11 +12,14 @@ import { useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import { CustomSideBar } from "./flowbite/SideBar";
 import { useTravel } from "./hooks/useTravel";
+import DateRangeComponent from "./DateRange";
 
 export default function SideBar() {
   const [showSidebar, setShowSidebar] = useState(true);
   const { id } = useParams();
   const { isLoading, travel } = useTravel();
+  const startDate = new Date(travel.start);
+  const endDate = new Date(travel.end);
 
   console.log(id);
 
@@ -46,7 +49,11 @@ export default function SideBar() {
                   <HiChevronDoubleLeft />
                 </Sidebar.Item>
 
-                <Sidebar.Item>{travel.name}</Sidebar.Item>
+                <Sidebar.Item>
+                  {travel.name}
+                  <DateRangeComponent startDate={startDate} endDate={endDate} />
+                </Sidebar.Item>
+
                 <NavLink to={`/${id}/schedule`}>
                   <Sidebar.Item icon={HiMap}>Schedule</Sidebar.Item>
                 </NavLink>
