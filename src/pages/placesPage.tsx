@@ -7,7 +7,7 @@ import {
 import { useLoadScript } from "@react-google-maps/api";
 import { Spinner } from "flowbite-react";
 import { usePlaces } from "../components/hooks/usePlaces";
-import { PlacePreviewCard } from "../components/place/PlacesPreviewCard";
+import { PlacePreviewCard } from "../components/PlacesPreviewCard";
 import { PlacePreview } from "../utilities/types";
 import { MapComponent } from "../components/maps/Map";
 

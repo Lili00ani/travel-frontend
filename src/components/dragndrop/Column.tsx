@@ -1,11 +1,19 @@
 import React from "react";
 import Item from "./Item";
 import { Droppable } from "react-beautiful-dnd";
+import { PlacePreview } from "../../utilities/types";
+
+// interface ColumnProps {
+//   col: {
+//     id: string;
+//     list: string[];
+//   };
+// }
 
 interface ColumnProps {
   col: {
     id: string;
-    list: string[];
+    list: PlacePreview[];
   };
 }
 
@@ -22,8 +30,8 @@ const Column: React.FC<ColumnProps> = ({ col: { list, id } }) => {
             {...provided.droppableProps}
             ref={provided.innerRef}
           >
-            {list.map((text, index) => (
-              <Item key={text} text={text} index={index} />
+            {list.map((place, index) => (
+              <Item key={place.id} place={place} index={index} />
             ))}
             {provided.placeholder}
           </div>
