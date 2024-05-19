@@ -22,7 +22,7 @@ const createInitialColumns = (duration: number): ColumnsType => {
       list: [],
     },
   };
-  for (let day = 1; day <= duration; day++) {
+  for (let day = 1; day <= duration + 1; day++) {
     columns[day] = {
       id: `${day}`,
       list: [],

@@ -111,6 +111,7 @@ export default function OrganizePage() {
                   </div>
                 ))}
             </div>
+            <hr className="h-px mt-2 mb-3 bg-gray-200 border-0 dark:bg-gray-700" />
           </div>
         </DragDropContext>
       )}
