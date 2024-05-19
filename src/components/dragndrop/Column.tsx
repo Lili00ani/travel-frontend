@@ -18,15 +18,15 @@ interface ColumnProps {
 }
 
 const Column: React.FC<ColumnProps> = ({ col: { list, id } }) => {
-  const columnName = id === "saved" ? "saved" : `day${id}`;
+  const columnName = id === "saved" ? "Saved" : `Day ${id}`;
 
   return (
     <Droppable droppableId={id}>
       {(provided) => (
-        <div className="">
-          <h2>{columnName}</h2>
+        <div className="mx-3">
+          <h2 className="sticky top-0 bg-white z-10 h-10 ">{columnName}</h2>
           <div
-            className="px-4 py-4 rounded-lg"
+            className="mt-6 h-full w-60 overflow-y-auto"
             {...provided.droppableProps}
             ref={provided.innerRef}
           >

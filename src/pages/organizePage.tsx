@@ -102,16 +102,16 @@ export default function OrganizePage() {
   };
 
   return (
-    <>
+    <div className="w-10/12 my-10 mx-auto">
       {!isLoading && (
         <DragDropContext onDragEnd={onDragEnd}>
-          <div className="grid grid-cols-4">
+          <div className="flex overflow-x-auto h-screen">
             {Object.values(columnData).map((col) => (
               <Column col={col} key={col.id} />
             ))}
           </div>
         </DragDropContext>
       )}
-    </>
+    </div>
   );
 }
