@@ -33,6 +33,10 @@ export interface PlacePreview {
   notes: string;
   name: string;
   address: string;
+  day: number;
+  ind: number;
+  start: Date;
+  end: Date;
 }
 
 export interface ItineraryAttributes {
