@@ -2,12 +2,14 @@ import React, { useState, useEffect } from "react";
 import Column from "../components/dragndrop/Column";
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
 import { useColumnsData } from "../components/hooks/useItinerariesData";
-import { PlacePreview } from "../components/utilities/types";
+import { PlacePreview, PlaceUpdate } from "../components/utilities/types";
 import { ColumnsType } from "../components/hooks/useItinerariesData";
+import { usePlaces } from "../components/hooks/usePlaces";
 
 export default function OrganizePage() {
   const { columns, isLoading } = useColumnsData();
   const [columnData, setColumnData] = useState<ColumnsType>(columns);
+  const { updatePlace } = usePlaces();
 
   useEffect(() => {
     if (!isLoading && columns) {
@@ -16,6 +18,31 @@ export default function OrganizePage() {
   }, [isLoading, columns]);
 
   console.log(columnData);
+
+  useEffect(() => {
+    const updateBackend = async () => {
+      const updates: Promise<void>[] = [];
+      Object.keys(columnData).forEach((colId) => {
+        columnData[colId].list.forEach((place, index) => {
+          const updatedPlace: PlaceUpdate = {
+            day: colId === "saved" ? 0 : parseInt(colId),
+            idx: index,
+          };
+          updates.push(updatePlace(place.id, updatedPlace));
+        });
+      });
+
+      try {
+        await Promise.all(updates);
+      } catch (error) {
+        console.error("Failed to update place:", error);
+      }
+    };
+
+    if (Object.keys(columnData).length > 0) {
+      updateBackend();
+    }
+  }, [columnData, updatePlace]);
 
   const onDragEnd = ({ source, destination }: DropResult) => {
     // Make sure we have a valid destination
@@ -57,6 +84,7 @@ export default function OrganizePage() {
 
       // Update the state
       setColumnData((state) => ({ ...state, [newCol.id]: newCol }));
+
       return null;
     } else {
       // If start is different from end, we need to update multiple columns

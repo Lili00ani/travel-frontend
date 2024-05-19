@@ -4,6 +4,7 @@ import { PlacePreview } from "../utilities/types";
 import { useAuth0 } from "@auth0/auth0-react";
 import { BACKEND_URL } from "../../constant";
 import { useParams } from "react-router-dom";
+import { PlaceUpdate } from "../utilities/types";
 
 export const usePlaces = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -51,5 +52,22 @@ export const usePlaces = () => {
     }
   };
 
-  return { isLoading, places, fetchAllPlaces, deletePlace };
+  const updatePlace = async (placeId: number, updateData: PlaceUpdate) => {
+    setIsLoading(true);
+    try {
+      const accessToken = await getAccessTokenSilently();
+      console.log(placeId);
+      await axios.put(`${BACKEND_URL}/place/${placeId}`, updateData, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return { isLoading, places, fetchAllPlaces, deletePlace, updatePlace };
 };

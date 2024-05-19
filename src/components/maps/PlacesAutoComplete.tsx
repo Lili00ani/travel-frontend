@@ -83,6 +83,8 @@ export const PlacesAutoComplete: React.FC<PlacesAutoCompleteProps> = ({
         notes: "",
         name: address,
         address: "",
+        day: 0,
+        idx: 0,
       };
       setSelectedPlace(selectedPlace);
       setNewPlace(newToAdd);
