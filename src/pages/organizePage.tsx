@@ -3,15 +3,7 @@ import Column from "../components/dragndrop/Column";
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
 import { useColumnsData } from "../components/hooks/useItinerariesData";
 import { PlacePreview } from "../utilities/types";
-
-interface ColumnType {
-  id: string;
-  list: PlacePreview[];
-}
-
-interface ColumnsType {
-  [key: string]: ColumnType;
-}
+import { ColumnsType } from "../components/hooks/useItinerariesData";
 
 export default function OrganizePage() {
   const { columns, isLoading } = useColumnsData();

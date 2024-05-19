@@ -6,17 +6,17 @@ import { BACKEND_URL } from "../../constant";
 import { useParams } from "react-router-dom";
 import { ItineraryAttributes } from "../../utilities/types";
 
-export interface Column {
+export interface ColumnType {
   id: string;
-  list: Array<PlacePreview>;
+  list: PlacePreview[];
 }
 
-export interface Columns {
-  [key: string]: Column;
+export interface ColumnsType {
+  [key: string]: ColumnType;
 }
 
-const createInitialColumns = (duration: number): Columns => {
-  const columns: Columns = {
+const createInitialColumns = (duration: number): ColumnsType => {
+  const columns: ColumnsType = {
     saved: {
       id: "saved",
       list: [],
