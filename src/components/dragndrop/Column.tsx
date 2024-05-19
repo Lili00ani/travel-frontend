@@ -23,10 +23,10 @@ const Column: React.FC<ColumnProps> = ({ col: { list, id } }) => {
   return (
     <Droppable droppableId={id}>
       {(provided) => (
-        <div className="mx-3">
+        <div className="mx-3 w-60">
           <h2 className="sticky top-0 bg-white z-10 h-10 ">{columnName}</h2>
           <div
-            className="mt-6 h-full w-60 overflow-y-auto"
+            className="mt-6 h-full overflow-y-auto"
             {...provided.droppableProps}
             ref={provided.innerRef}
           >
