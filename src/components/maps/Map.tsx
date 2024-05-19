@@ -1,6 +1,6 @@
 import { GoogleMap, Marker, MarkerF } from "@react-google-maps/api";
 import { MapProps } from "./PlacesAutoComplete";
-import { PlacePreview } from "../../utilities/types";
+import { PlacePreview } from "../utilities/types";
 import { getGeocode, getLatLng } from "use-places-autocomplete";
 import { useRef } from "react";
 

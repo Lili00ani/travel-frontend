@@ -1,7 +1,7 @@
 import React from "react";
 import Item from "./Item";
 import { Droppable } from "react-beautiful-dnd";
-import { PlacePreview } from "../../utilities/types";
+import { PlacePreview } from "../utilities/types";
 
 interface ColumnProps {
   col: {
@@ -11,7 +11,7 @@ interface ColumnProps {
 }
 
 const Column: React.FC<ColumnProps> = ({ col: { list, id } }) => {
-  const columnName = id === "saved" ? "Saved" : `Day ${id}`;
+  const columnName = id === "saved" ? "😍Saved Places" : `Day ${id}`;
 
   return (
     <Droppable droppableId={id}>

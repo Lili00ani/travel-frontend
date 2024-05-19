@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Column from "../components/dragndrop/Column";
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
 import { useColumnsData } from "../components/hooks/useItinerariesData";
-import { PlacePreview } from "../utilities/types";
+import { PlacePreview } from "../components/utilities/types";
 import { ColumnsType } from "../components/hooks/useItinerariesData";
 
 export default function OrganizePage() {
