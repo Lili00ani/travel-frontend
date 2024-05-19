@@ -2,7 +2,7 @@
 import { Card } from "flowbite-react";
 import React, { FunctionComponent } from "react";
 import DateRangeComponent from "./DateRange";
-import { Travel } from "../utilities/types";
+import { Travel } from "./utilities/types";
 import { MdEdit } from "react-icons/md";
 
 const TravelPreviewCard: FunctionComponent<Travel> = (props) => {

@@ -34,3 +34,14 @@ export interface PlacePreview {
   name: string;
   address: string;
 }
+
+export interface ItineraryAttributes {
+  id: number;
+  day: number;
+  color: string;
+  place_id: number;
+  start: Date;
+  end: Date;
+  index: number;
+  travel_id: number;
+}

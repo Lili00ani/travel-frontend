@@ -1,6 +1,7 @@
 //-----------Libraries-----------//
-import { Card, Dropdown } from "flowbite-react";
+import { Card, Dropdown, TextInput } from "flowbite-react";
 import React, { FunctionComponent } from "react";
+import { CustomTextInput } from "./flowbite/TextInput";
 
 export interface PlacePreview {
   id: number;
@@ -33,9 +34,14 @@ export const PlacePreviewCard: FunctionComponent<PlacePreview> = (props) => {
           <h5 className="line-clamp-3 text-1xl leading-none text-gray-900 dark:text-white mb-2">
             <a href={`./places/${props.id}`}>{props.name}</a>
           </h5>
-          <p className="text-sm leading-none text-gray-900 dark:text-white">
-            category
-          </p>
+          <form>
+            <TextInput
+              theme={CustomTextInput}
+              id="tags"
+              type="text"
+              placeholder="Notes"
+            />
+          </form>
         </div>
       </div>
     </Card>

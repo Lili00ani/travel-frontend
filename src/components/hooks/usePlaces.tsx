@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { PlacePreview } from "../../utilities/types";
+import { PlacePreview } from "../utilities/types";
 import { useAuth0 } from "@auth0/auth0-react";
 import { BACKEND_URL } from "../../constant";
 import { useParams } from "react-router-dom";

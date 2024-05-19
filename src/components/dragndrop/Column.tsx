@@ -1,29 +1,32 @@
 import React from "react";
 import Item from "./Item";
 import { Droppable } from "react-beautiful-dnd";
+import { PlacePreview } from "../utilities/types";
 
 interface ColumnProps {
   col: {
     id: string;
-    list: string[];
+    list: PlacePreview[];
   };
 }
 
 const Column: React.FC<ColumnProps> = ({ col: { list, id } }) => {
-  const columnName = id === "saved" ? "saved" : `day${id}`;
+  const columnName = id === "saved" ? "😍Saved Places" : `Day ${id}`;
 
   return (
     <Droppable droppableId={id}>
       {(provided) => (
-        <div className="">
-          <h2>{columnName}</h2>
+        <div className="w-60">
+          <h2 className="sticky top-0 bg-white z-10 h-10 font-semibold">
+            {columnName}
+          </h2>
           <div
-            className="px-4 py-4 rounded-lg"
+            className="mt-6 h-full overflow-y-auto"
             {...provided.droppableProps}
             ref={provided.innerRef}
           >
-            {list.map((text, index) => (
-              <Item key={text} text={text} index={index} />
+            {list.map((place, index) => (
+              <Item key={place.id} place={place} index={index} />
             ))}
             {provided.placeholder}
           </div>

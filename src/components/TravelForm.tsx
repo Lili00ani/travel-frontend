@@ -1,7 +1,7 @@
 import { Button, Label, Spinner, TextInput, Modal } from "flowbite-react";
 import Datepicker from "react-tailwindcss-datepicker";
 import React, { useEffect, useState, useContext } from "react";
-import { Travel, Country } from "../utilities/types";
+import { Travel, Country } from "./utilities/types";
 import axios from "axios";
 import { BACKEND_URL } from "../constant";
 import { useNavigate, useParams } from "react-router-dom";
@@ -137,6 +137,11 @@ export function TravelForm() {
     const accessToken = await getAccessTokenSilently();
     setLoading(true);
     try {
+      await axios.delete(`${BACKEND_URL}/place/all/${travelState.id}`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
       await axios.delete(`${BACKEND_URL}/travel/${travelState.id}`, {
         headers: {
           Authorization: `Bearer ${accessToken}`,

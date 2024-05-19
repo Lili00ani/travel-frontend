@@ -54,7 +54,7 @@ export default function DetailPage() {
   console.log(placeDetails);
 
   return (
-    <div className="w-9/12 mx-auto">
+    <div className="w-7/12 mx-auto">
       {placeDetails && <PlaceDetailCard details={placeDetails} />}
     </div>
   );
