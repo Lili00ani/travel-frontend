@@ -5,8 +5,14 @@ import { useColumnsData } from "../components/hooks/useItinerariesData";
 import { PlacePreview, PlaceUpdate } from "../components/utils/types";
 import { ColumnsType } from "../components/hooks/useItinerariesData";
 import { usePlaces } from "../components/hooks/usePlaces";
+import { MapOrganize } from "../components/maps/MapItinerary";
+import { useLoadScript } from "@react-google-maps/api";
 
 export default function OrganizePage() {
+  const { isLoaded } = useLoadScript({
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY!,
+    libraries: ["places"],
+  });
   const { columns, isLoading } = useColumnsData();
   const [columnData, setColumnData] = useState<ColumnsType>(columns);
   const { updatePlace } = usePlaces();
@@ -125,9 +131,14 @@ export default function OrganizePage() {
     <div className="w-10/12 my-10 mx-auto flex flex-col space-y-6">
       {!isLoading && (
         <DragDropContext onDragEnd={onDragEnd}>
-          <div className="flex flex-col space-y-6">
-            <div className="w-60 h-96 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-              <Column col={columnData["saved"]} key="saved" />
+          <div className="flex flex-col space-y-6 h-full">
+            <div className="flex flex-row space-x-6 h-1/2">
+              <div className="w-60 h-96 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+                <Column col={columnData["saved"]} key="saved" />
+              </div>
+              <div className="flex-grow h-full">
+                {isLoaded && <MapOrganize />}
+              </div>
             </div>
             <hr className="h-px mt-2 mb-3 bg-gray-200 border-0 dark:bg-gray-700" />
             <div className="flex space-x-3 h-96 overflow-y-auto">
