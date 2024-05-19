@@ -70,7 +70,7 @@ export function TravelForm() {
     };
 
     fetchUserandCountries();
-  }, []);
+  }, [dateRange]);
 
   useEffect(() => {
     const fetchExistingTravel = async () => {
@@ -102,8 +102,8 @@ export function TravelForm() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const accessToken = await getAccessTokenSilently();
-    console.log(accessToken, travelState);
     setLoading(true);
+
     try {
       if (travelState.id !== 0) {
         // Update existing travel plan
