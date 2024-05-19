@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Column from "../components/dragndrop/Column";
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
 import { useColumnsData } from "../components/hooks/useItinerariesData";
-import { PlacePreview, PlaceUpdate } from "../components/utilities/types";
+import { PlacePreview, PlaceUpdate } from "../components/utils/types";
 import { ColumnsType } from "../components/hooks/useItinerariesData";
 import { usePlaces } from "../components/hooks/usePlaces";
 

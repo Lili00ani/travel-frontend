@@ -1,7 +1,7 @@
 import React from "react";
 import Item from "./Item";
 import { Droppable } from "react-beautiful-dnd";
-import { PlacePreview } from "../utilities/types";
+import { PlacePreview } from "../utils/types";
 
 interface ColumnProps {
   col: {
