@@ -1,7 +1,8 @@
 import React, { useRef } from "react";
-import { GoogleMap, MarkerF } from "@react-google-maps/api";
+import { GoogleMap, Marker } from "@react-google-maps/api";
 import { PlacePreview } from "../utils/types";
 import { ColumnsType } from "../hooks/useItinerariesData";
+import { useState, useEffect } from "react";
 
 interface MapOrganizeProps {
   places: ColumnsType;
@@ -25,30 +26,19 @@ export const MapOrganize: React.FC<MapOrganizeProps> = ({ places }) => {
     width: "100%",
     height: "45vh",
   };
-
+  const [allPlaces, setAllPlaces] = useState<PlacePreview[]>([]);
   const mapRef = useRef<google.maps.Map | null>(null);
 
-  // const allPlaces = Object.values(places).flatMap((column) => column.list);
-  // console.log(allPlaces);
-  // console.log("All Places:", allPlaces);
-  // allPlaces.forEach((place) => {
-  //   console.log(
-  //     `Place - ID: ${place.id}, Lat: ${place.lat}, Lng: ${place.lng}`
-  //   );
-  // });
+  useEffect(() => {
+    const allPlacesList = Object.values(places).flatMap(
+      (column) => column.list
+    );
+    setAllPlaces(allPlacesList);
+  }, [places]);
 
-  const onLoad = (map: google.maps.Map) => {
-    mapRef.current = map;
-
-    const allPlaces = Object.values(places).flatMap((column) => column.list);
-    console.log(allPlaces);
-    if (allPlaces.length > 0) {
-      const bounds = new google.maps.LatLngBounds();
-      allPlaces.forEach((p: PlacePreview) => {
-        bounds.extend(new google.maps.LatLng(p.lat, p.lng));
-      });
-      map.fitBounds(bounds);
-    } else {
+  const fitBoundsToPlaces = (map: google.maps.Map, places: PlacePreview[]) => {
+    const bounds = new google.maps.LatLngBounds();
+    if (places.length < 1) {
       const worldBounds = {
         north: 85,
         south: -85,
@@ -56,12 +46,28 @@ export const MapOrganize: React.FC<MapOrganizeProps> = ({ places }) => {
         east: 180,
       };
       map.fitBounds(worldBounds);
+    } else {
+      places.forEach((p: PlacePreview) => {
+        bounds.extend(new google.maps.LatLng(p.lat, p.lng));
+      });
+      map.fitBounds(bounds);
     }
+  };
+
+  useEffect(() => {
+    if (mapRef.current) {
+      fitBoundsToPlaces(mapRef.current, allPlaces);
+    }
+  }, [allPlaces]);
+
+  const onLoad = (map: google.maps.Map) => {
+    mapRef.current = map;
+    fitBoundsToPlaces(map, allPlaces);
   };
 
   const markers = Object.keys(places).flatMap((key, colIndex) =>
     places[key].list.map((place, index) => (
-      <MarkerF
+      <Marker
         key={place.id}
         position={{ lat: place.lat, lng: place.lng }}
         label={{

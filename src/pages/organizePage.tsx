@@ -5,25 +5,18 @@ import { useColumnsData } from "../components/hooks/useItinerariesData";
 import { PlacePreview, PlaceUpdate } from "../components/utils/types";
 import { ColumnsType } from "../components/hooks/useItinerariesData";
 import { usePlaces } from "../components/hooks/usePlaces";
-import { MapOrganize } from "../components/maps/MapItinerary";
-// import { useLoadScript } from "@react-google-maps/api";
+import { MapOrganize } from "../components/maps/MapOrganize";
 
 export default function OrganizePage() {
-  // const { isLoaded } = useLoadScript({
-  //   googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY!,
-  //   libraries: ["places"],
-  // });
   const { columns, isLoading } = useColumnsData();
   const [columnData, setColumnData] = useState<ColumnsType>(columns);
   const { updatePlace } = usePlaces();
 
   useEffect(() => {
-    if (!isLoading && columns) {
+    if (columns) {
       setColumnData(columns);
     }
-  }, [isLoading, columns]);
-
-  console.log(columnData);
+  }, [columns]);
 
   useEffect(() => {
     const updateBackend = async () => {
@@ -48,7 +41,7 @@ export default function OrganizePage() {
     if (Object.keys(columnData).length > 0) {
       updateBackend();
     }
-  }, [columnData, updatePlace]);
+  }, [columnData]);
 
   const onDragEnd = ({ source, destination }: DropResult) => {
     // Make sure we have a valid destination

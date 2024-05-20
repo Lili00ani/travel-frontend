@@ -39,8 +39,6 @@ export const useColumnsData = () => {
   const { id } = useParams();
   const { places, isLoading: isLoadingPlaces } = usePlaces();
 
-  console.log(duration);
-
   useEffect(() => {
     const fetchTravelDuration = async () => {
       setIsLoading(true);
@@ -61,7 +59,7 @@ export const useColumnsData = () => {
       }
     };
     fetchTravelDuration();
-  }, [id, getAccessTokenSilently]);
+  }, [id]);
 
   useEffect(() => {
     if (duration > 0 && places.length > 0) {
@@ -79,8 +77,6 @@ export const useColumnsData = () => {
       setColumns(newColumns);
     }
   }, [duration, places]);
-
-  console.log(columns);
 
   return { columns, isLoading: isLoading || isLoadingPlaces };
 };

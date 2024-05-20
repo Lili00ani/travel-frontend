@@ -56,7 +56,6 @@ export const usePlaces = () => {
     setIsLoading(true);
     try {
       const accessToken = await getAccessTokenSilently();
-      console.log(placeId);
       await axios.put(`${BACKEND_URL}/place/${placeId}`, updateData, {
         headers: {
           Authorization: `Bearer ${accessToken}`,

@@ -4,7 +4,6 @@ import {
   PlacesAutoComplete,
   MapProps,
 } from "../components/maps/PlacesAutoComplete";
-import { useLoadScript } from "@react-google-maps/api";
 import { Spinner } from "flowbite-react";
 import { usePlaces } from "../components/hooks/usePlaces";
 import { PlacePreviewCard } from "../components/PlacesPreviewCard";
@@ -12,16 +11,14 @@ import { PlacePreview } from "../components/utils/types";
 import { MapComponent } from "../components/maps/Map";
 
 export default function PlacesPage() {
-  // const { isLoaded } = useLoadScript({
-  //   googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY!,
-  //   libraries: ["places"],
-  // });
   const { isLoading, places, fetchAllPlaces, deletePlace } = usePlaces();
   const [selectedPlace, setSelectedPlace] = useState<MapProps | null>(null);
 
   useEffect(() => {
     fetchAllPlaces();
-  }, [selectedPlace]);
+  }, []);
+
+  console.log(places);
 
   console.log("isLoading:", isLoading);
   console.log("places:", places);
