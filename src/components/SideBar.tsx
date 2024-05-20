@@ -12,7 +12,7 @@ import { useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import { CustomSideBar } from "./flowbite/SideBar";
 import { useTravel } from "./hooks/useTravel";
-import DateRangeComponent from "./DateRange";
+import DateRangeComponent from "./utils/DateRange";
 
 interface SideBarProps {
   showSidebar: boolean;

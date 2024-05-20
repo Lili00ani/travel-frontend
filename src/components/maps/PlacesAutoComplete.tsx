@@ -12,7 +12,7 @@ import {
 } from "@reach/combobox";
 import { useEffect, useState } from "react";
 import { Button } from "flowbite-react";
-import { Place } from "../utilities/types";
+import { Place } from "../utils/types";
 import { useAuth0 } from "@auth0/auth0-react";
 import { BACKEND_URL } from "../../constant";
 import axios from "axios";
@@ -83,6 +83,8 @@ export const PlacesAutoComplete: React.FC<PlacesAutoCompleteProps> = ({
         notes: "",
         name: address,
         address: "",
+        day: 0,
+        idx: 0,
       };
       setSelectedPlace(selectedPlace);
       setNewPlace(newToAdd);

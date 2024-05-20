@@ -5,10 +5,12 @@ import axios from "axios";
 import { BACKEND_URL } from "../constant";
 import { useLoadScript } from "@react-google-maps/api";
 import PlaceDetailCard from "../components/PlacesDetailCard";
+import { useAuth0 } from "@auth0/auth0-react";
 
 export default function DetailPage() {
   const { id, id2 } = useParams();
   const [loading, setLoading] = useState<boolean>(false);
+  const { getAccessTokenSilently } = useAuth0();
   const [googleId, setGoogleId] = useState<string>("");
   const [placeDetails, setPlaceDetails] = useState<any>(null);
   const { isLoaded } = useLoadScript({
@@ -21,7 +23,12 @@ export default function DetailPage() {
     const getGoogleId = async () => {
       setLoading(true);
       try {
-        const response = await axios.get(`${BACKEND_URL}/place/${id2}`);
+        const accessToken = await getAccessTokenSilently();
+        const response = await axios.get(`${BACKEND_URL}/place/${id2}`, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        });
         setGoogleId(response.data.google_places);
         setLoading(false);
       } catch (error) {

@@ -23,6 +23,8 @@ export interface Place {
   notes: string;
   name: string;
   address: string;
+  day: number;
+  idx: number;
 }
 
 export interface PlacePreview {
@@ -33,6 +35,18 @@ export interface PlacePreview {
   notes: string;
   name: string;
   address: string;
+  day: number;
+  idx: number;
+  start: Date;
+  end: Date;
+}
+
+export interface PlaceUpdate {
+  notes?: string;
+  day?: number;
+  idx?: number;
+  start?: Date;
+  end?: Date;
 }
 
 export interface ItineraryAttributes {

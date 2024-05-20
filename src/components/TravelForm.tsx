@@ -1,7 +1,7 @@
 import { Button, Label, Spinner, TextInput, Modal } from "flowbite-react";
 import Datepicker from "react-tailwindcss-datepicker";
 import React, { useEffect, useState, useContext } from "react";
-import { Travel, Country } from "./utilities/types";
+import { Travel, Country } from "./utils/types";
 import axios from "axios";
 import { BACKEND_URL } from "../constant";
 import { useNavigate, useParams } from "react-router-dom";
@@ -70,7 +70,7 @@ export function TravelForm() {
     };
 
     fetchUserandCountries();
-  }, []);
+  }, [dateRange]);
 
   useEffect(() => {
     const fetchExistingTravel = async () => {
@@ -102,8 +102,8 @@ export function TravelForm() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const accessToken = await getAccessTokenSilently();
-    console.log(accessToken, travelState);
     setLoading(true);
+
     try {
       if (travelState.id !== 0) {
         // Update existing travel plan

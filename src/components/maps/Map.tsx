@@ -1,6 +1,6 @@
 import { GoogleMap, Marker, MarkerF } from "@react-google-maps/api";
 import { MapProps } from "./PlacesAutoComplete";
-import { PlacePreview } from "../utilities/types";
+import { PlacePreview } from "../utils/types";
 import { getGeocode, getLatLng } from "use-places-autocomplete";
 import { useRef } from "react";
 
@@ -60,7 +60,10 @@ export const MapComponent: React.FC<MapComponentProps> = ({
             <MarkerF
               key={p.id}
               position={{ lat: p.lat, lng: p.lng }}
-              label={{ text: (index + 1).toString(), color: "white" }}
+              label={{
+                text: (index + 1).toString(),
+                color: "white",
+              }}
             />
           ))}
         {place && place.lat !== 0 && (

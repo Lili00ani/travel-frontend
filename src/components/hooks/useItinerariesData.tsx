@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { PlacePreview } from "../utilities/types";
+import { PlacePreview } from "../utils/types";
 import { useAuth0 } from "@auth0/auth0-react";
 import { BACKEND_URL } from "../../constant";
 import { useParams } from "react-router-dom";
-import { ItineraryAttributes } from "../utilities/types";
+import { usePlaces } from "./usePlaces";
 
 export interface ColumnType {
   id: string;
@@ -37,8 +37,7 @@ export const useColumnsData = () => {
   const [columns, setColumns] = useState(createInitialColumns(0));
   const { getAccessTokenSilently } = useAuth0();
   const { id } = useParams();
-
-  console.log(duration);
+  const { places, isLoading: isLoadingPlaces } = usePlaces();
 
   useEffect(() => {
     const fetchTravelDuration = async () => {
@@ -60,90 +59,24 @@ export const useColumnsData = () => {
       }
     };
     fetchTravelDuration();
-  }, [id, getAccessTokenSilently]);
+  }, [id]);
 
   useEffect(() => {
-    const fetchUnassignedPlaces = async () => {
-      setIsLoading(true);
-      try {
-        const accessToken = await getAccessTokenSilently();
-        const response = await axios.get(`${BACKEND_URL}/place/unassigned`, {
-          params: { id },
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        });
-        const unassignedPlaces: PlacePreview[] = response.data;
-        setColumns((prevColumns) => ({
-          ...prevColumns,
-          saved: {
-            ...prevColumns.saved,
-            list: unassignedPlaces,
-          },
-        }));
-        setIsLoading(false);
-      } catch (error) {
-        console.error(error);
-        setIsLoading(false);
-      }
-    };
-    fetchUnassignedPlaces();
-  }, [id, getAccessTokenSilently]);
+    if (duration > 0 && places.length > 0) {
+      const newColumns = createInitialColumns(duration);
 
-  useEffect(() => {
-    const fetchItineraries = async () => {
-      setIsLoading(true);
-      try {
-        const accessToken = await getAccessTokenSilently();
-        const response = await axios.get(`${BACKEND_URL}/itineraries`, {
-          params: { travel_id: id },
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        });
-        const itineraries: ItineraryAttributes[] = response.data;
+      places.forEach((place: PlacePreview) => {
+        const day = place.day;
+        if (day === 0) {
+          newColumns.saved.list.push(place);
+        } else if (newColumns[day]) {
+          newColumns[day].list.push(place);
+        }
+      });
 
-        // Fetch place details for each itinerary
-        const placePromises = itineraries.map((itinerary) =>
-          axios.get(`${BACKEND_URL}/place/${itinerary.place_id}`, {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-            },
-          })
-        );
-
-        const placesResponses = await Promise.all(placePromises);
-        const places = placesResponses.map((response) => response.data);
-
-        // Create a map of place_id to PlacePreview
-        const placeMap: { [key: number]: PlacePreview } = {};
-        places.forEach((place: PlacePreview) => {
-          placeMap[place.id] = place;
-        });
-
-        const newColumns = createInitialColumns(duration);
-
-        itineraries.forEach((itinerary: ItineraryAttributes) => {
-          const place = placeMap[itinerary.place_id];
-          if (newColumns[itinerary.day] && place) {
-            newColumns[itinerary.day].list.push(place);
-          }
-        });
-
-        setColumns(newColumns);
-        setIsLoading(false);
-      } catch (error) {
-        console.error(error);
-        setIsLoading(false);
-      }
-    };
-
-    if (duration > 0) {
-      fetchItineraries();
+      setColumns(newColumns);
     }
-  }, [id, duration, getAccessTokenSilently]);
+  }, [duration, places]);
 
-  console.log(columns);
-
-  return { columns, isLoading };
+  return { columns, isLoading: isLoading || isLoadingPlaces };
 };

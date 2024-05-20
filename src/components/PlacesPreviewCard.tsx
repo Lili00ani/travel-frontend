@@ -1,16 +1,32 @@
 //-----------Libraries-----------//
 import { Card, Dropdown, TextInput } from "flowbite-react";
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useState } from "react";
 import { CustomTextInput } from "./flowbite/TextInput";
+import { usePlaces } from "./hooks/usePlaces";
 
 export interface PlacePreview {
   id: number;
   name: string;
   onDelete: (id: number) => void;
   index: number;
+  notes: string;
 }
 
 export const PlacePreviewCard: FunctionComponent<PlacePreview> = (props) => {
+  const { updatePlace } = usePlaces();
+  const [notes, setNotes] = useState(props.notes || "");
+
+  const handleChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newNotes = event.target.value;
+    setNotes(newNotes);
+    try {
+      await updatePlace(props.id, { notes: newNotes });
+      console.log("Notes updated successfully");
+    } catch (error) {
+      console.error("Failed to update notes", error);
+    }
+  };
+
   return (
     <Card className="w-full py-1 px-1 relative">
       <div className="flex flex-col">
@@ -40,6 +56,8 @@ export const PlacePreviewCard: FunctionComponent<PlacePreview> = (props) => {
               id="tags"
               type="text"
               placeholder="Notes"
+              value={notes}
+              onChange={handleChange}
             />
           </form>
         </div>

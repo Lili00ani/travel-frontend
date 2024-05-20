@@ -7,7 +7,7 @@ import axios from "axios";
 import { Spinner } from "flowbite-react";
 import NavigationBar from "../components/NavBar";
 import TravelPreviewCard from "../components/TravelPreviewCard";
-import { Travel } from "../components/utilities/types";
+import { Travel } from "../components/utils/types";
 
 const initialTravelState: Travel[] = [];
 
