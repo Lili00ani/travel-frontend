@@ -16,6 +16,9 @@ module.exports = {
       height: {
         1000: "300vh",
       },
+      textDecorationThickness: {
+        20: "20px",
+      },
     },
   },
   plugins: [flowbite.plugin()],

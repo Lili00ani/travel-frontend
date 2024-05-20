@@ -35,7 +35,12 @@ const Item: React.FC<ItemProps> = ({ place, index }) => {
           {...provided.draggableProps}
           {...provided.dragHandleProps}
         >
-          <div>{place.name}</div>
+          <div className="relative left-1">{index + 1}</div>
+
+          <div>
+            <a href={`./places/${place.id}`}>{place.name}</a>
+          </div>
+
           <form>
             <TextInput
               theme={CustomTextInput}

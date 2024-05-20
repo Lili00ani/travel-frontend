@@ -6,13 +6,13 @@ import { PlacePreview, PlaceUpdate } from "../components/utils/types";
 import { ColumnsType } from "../components/hooks/useItinerariesData";
 import { usePlaces } from "../components/hooks/usePlaces";
 import { MapOrganize } from "../components/maps/MapItinerary";
-import { useLoadScript } from "@react-google-maps/api";
+// import { useLoadScript } from "@react-google-maps/api";
 
 export default function OrganizePage() {
-  const { isLoaded } = useLoadScript({
-    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY!,
-    libraries: ["places"],
-  });
+  // const { isLoaded } = useLoadScript({
+  //   googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY!,
+  //   libraries: ["places"],
+  // });
   const { columns, isLoading } = useColumnsData();
   const [columnData, setColumnData] = useState<ColumnsType>(columns);
   const { updatePlace } = usePlaces();
@@ -137,7 +137,7 @@ export default function OrganizePage() {
                 <Column col={columnData["saved"]} key="saved" />
               </div>
               <div className="flex-grow h-full">
-                {isLoaded && <MapOrganize />}
+                <MapOrganize places={columnData} />
               </div>
             </div>
             <hr className="h-px mt-2 mb-3 bg-gray-200 border-0 dark:bg-gray-700" />
