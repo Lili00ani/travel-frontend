@@ -18,6 +18,8 @@ export default function OrganizePage() {
     }
   }, [columns]);
 
+  console.log(columnData);
+
   useEffect(() => {
     const updateBackend = async () => {
       const updates: Promise<void>[] = [];

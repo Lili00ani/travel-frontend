@@ -13,7 +13,7 @@ const TravelPreviewCard: FunctionComponent<Travel> = (props) => {
     <Card href={`./${props.id}/organize`} className="w-full h-48 py-5 px-5">
       <div className="mb-4 flex items-center justify-between">
         <h5 className="text-3xl font-bold leading-none text-gray-900 dark:text-white">
-          {props.country_code}
+          {props.name}
         </h5>
         <a
           href={`./${props.id}/edit`}
@@ -23,7 +23,7 @@ const TravelPreviewCard: FunctionComponent<Travel> = (props) => {
         </a>
       </div>
       <p className="font-normal text-gray-700 dark:text-gray-400">
-        {props.name}
+        {props.country_code}
       </p>
       <p className="font-normal text-gray-700 dark:text-gray-400">
         <DateRangeComponent startDate={startDate} endDate={endDate} />

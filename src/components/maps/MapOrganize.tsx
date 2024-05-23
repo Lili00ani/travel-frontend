@@ -9,16 +9,14 @@ interface MapOrganizeProps {
 }
 
 const markerColors = [
-  "http://maps.google.com/mapfiles/ms/icons/red.png",
+  "http://maps.google.com/mapfiles/ms/icons/grey.png",
   "http://maps.google.com/mapfiles/ms/icons/blue.png",
   "http://maps.google.com/mapfiles/ms/icons/green.png",
   "http://maps.google.com/mapfiles/ms/icons/yellow.png",
   "http://maps.google.com/mapfiles/ms/icons/purple.png",
   "http://maps.google.com/mapfiles/ms/icons/orange.png",
   "http://maps.google.com/mapfiles/ms/icons/pink.png",
-  "http://maps.google.com/mapfiles/ms/icons/brown.png",
-  "http://maps.google.com/mapfiles/ms/icons/white.png",
-  "http://maps.google.com/mapfiles/ms/icons/black.png",
+  "http://maps.google.com/mapfiles/ms/icons/red.png",
 ];
 
 export const MapOrganize: React.FC<MapOrganizeProps> = ({ places }) => {
@@ -65,22 +63,33 @@ export const MapOrganize: React.FC<MapOrganizeProps> = ({ places }) => {
     fitBoundsToPlaces(map, allPlaces);
   };
 
-  const markers = Object.keys(places).flatMap((key, colIndex) =>
-    places[key].list.map((place, index) => (
-      <Marker
-        key={place.id}
-        position={{ lat: place.lat, lng: place.lng }}
-        label={{
-          text: (index + 1).toString(),
-          color: "black",
-        }}
-        icon={{
-          url: markerColors[(colIndex % markerColors.length) + 1],
-          scaledSize: new google.maps.Size(45, 45),
-          labelOrigin: new google.maps.Point(22, 15),
-        }}
-      />
-    ))
+  // Reorder columns to ensure "saved" is always first
+  const orderedPlaces = Object.keys(places).sort((a, b) => {
+    if (a === "saved") return -1;
+    if (b === "saved") return 1;
+    return parseInt(a) - parseInt(b);
+  });
+
+  const markers = orderedPlaces.flatMap((key, colIndex) =>
+    places[key].list.map((place, index) => {
+      const markerUrl = markerColors[colIndex % markerColors.length];
+      console.log(markerUrl, colIndex, (index + 1).toString());
+      return (
+        <Marker
+          key={place.id}
+          position={{ lat: place.lat, lng: place.lng }}
+          label={{
+            text: (index + 1).toString(),
+            color: "black",
+          }}
+          icon={{
+            url: markerUrl,
+            scaledSize: new google.maps.Size(45, 45),
+            labelOrigin: new google.maps.Point(22, 15),
+          }}
+        />
+      );
+    })
   );
 
   return (

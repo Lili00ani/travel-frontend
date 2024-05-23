@@ -3,9 +3,6 @@ import { Card, Dropdown, TextInput } from "flowbite-react";
 import React, { FunctionComponent, useState } from "react";
 import { CustomTextInput } from "./flowbite/TextInput";
 import { usePlaces } from "./hooks/usePlaces";
-import TimePicker from "react-time-picker";
-import "react-time-picker/dist/TimePicker.css";
-import "react-clock/dist/Clock.css";
 
 export interface PlacePreview {
   id: number;
@@ -20,7 +17,6 @@ export interface PlacePreview {
 export const PlacePreviewCard: FunctionComponent<PlacePreview> = (props) => {
   const { updatePlace } = usePlaces();
   const [notes, setNotes] = useState(props.notes || "");
-  const [time, setTime] = useState<string | null>(null);
 
   const handleChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const newNotes = event.target.value;
@@ -65,7 +61,6 @@ export const PlacePreviewCard: FunctionComponent<PlacePreview> = (props) => {
               value={notes}
               onChange={handleChange}
             />
-            <TimePicker onChange={setTime} value={time} />
           </form>
         </div>
       </div>
