@@ -30,7 +30,7 @@ const Item: React.FC<ItemProps> = ({ place, index }) => {
     <Draggable draggableId={place.id.toString()} index={index}>
       {(provided) => (
         <div
-          className="px-2 py-2 mb-2 border bg-white border-gray-300 rounded"
+          className="px-2 py-2 mb-2 border bg-white border-gray-300 rounded hover:shadow-md hover:shadow-gray-500"
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}

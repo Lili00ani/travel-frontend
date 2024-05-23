@@ -3,6 +3,9 @@ import { Card, Dropdown, TextInput } from "flowbite-react";
 import React, { FunctionComponent, useState } from "react";
 import { CustomTextInput } from "./flowbite/TextInput";
 import { usePlaces } from "./hooks/usePlaces";
+import TimePicker from "react-time-picker";
+import "react-time-picker/dist/TimePicker.css";
+import "react-clock/dist/Clock.css";
 
 export interface PlacePreview {
   id: number;
@@ -10,11 +13,14 @@ export interface PlacePreview {
   onDelete: (id: number) => void;
   index: number;
   notes: string;
+  start: Date;
+  end: Date;
 }
 
 export const PlacePreviewCard: FunctionComponent<PlacePreview> = (props) => {
   const { updatePlace } = usePlaces();
   const [notes, setNotes] = useState(props.notes || "");
+  const [time, setTime] = useState<string | null>(null);
 
   const handleChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const newNotes = event.target.value;
@@ -28,7 +34,7 @@ export const PlacePreviewCard: FunctionComponent<PlacePreview> = (props) => {
   };
 
   return (
-    <Card className="w-full py-1 px-1 relative">
+    <Card className="w-full py-1 px-1 relative hover:shadow-md hover:shadow-gray-500">
       <div className="flex flex-col">
         <div className="absolute top-2 left-2 flex items-center justify-center">
           {props.index + 1}
@@ -50,7 +56,7 @@ export const PlacePreviewCard: FunctionComponent<PlacePreview> = (props) => {
           <h5 className="line-clamp-3 text-1xl leading-none text-gray-900 dark:text-white mb-2">
             <a href={`./places/${props.id}`}>{props.name}</a>
           </h5>
-          <form>
+          <form className="flex flex-col gap-2">
             <TextInput
               theme={CustomTextInput}
               id="tags"
@@ -59,6 +65,7 @@ export const PlacePreviewCard: FunctionComponent<PlacePreview> = (props) => {
               value={notes}
               onChange={handleChange}
             />
+            <TimePicker onChange={setTime} value={time} />
           </form>
         </div>
       </div>
