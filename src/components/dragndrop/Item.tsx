@@ -86,7 +86,13 @@ const Item: React.FC<ItemProps> = ({ place, index }) => {
               </div>
               <div>
                 <h5 className="line-clamp-2 text-1xl leading-none font-medium text-gray-900 dark:text-white mb-2">
-                  <a href={`./places/${place.id}`}>{place.name}</a>
+                  <a
+                    href={`./places/${place.id}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {place.name}
+                  </a>
                 </h5>
                 <form className="flex flex-col gap-2">
                   {isEditing ? (
