@@ -131,12 +131,13 @@ export default function OrganizePage() {
               <div className="w-60 h-96 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
                 <Column col={columnData["saved"]} key="saved" />
               </div>
+
               <div className="flex-grow h-full">
                 <MapOrganize places={columnData} />
               </div>
             </div>
             <hr className="h-px mt-2 mb-3 bg-gray-200 border-0 dark:bg-gray-700" />
-            <div className="flex space-x-3 h-96 overflow-y-auto">
+            <div className="flex space-x-3 h-96 overflow-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
               {Object.keys(columnData)
                 .filter((id) => id !== "saved")
                 .map((id) => (

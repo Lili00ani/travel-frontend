@@ -48,7 +48,7 @@ export default function PlacesPage() {
           <div className="md:w-10/12 my-10 mx-auto">
             <p className="font-semibold text-xl">😍Saved Places</p>
             <hr className="h-px mt-2 mb-3 bg-gray-200 border-0 dark:bg-gray-700" />
-            <div className="w-full grid grid-cols-1 gap-4 md:grid-cols-6">
+            <div className="w-full grid grid-cols-1 gap-4 md:grid-cols-4">
               {Array.isArray(places) &&
                 places.map((place: PlacePreview, index: number) => (
                   <PlacePreviewCard
