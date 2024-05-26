@@ -30,6 +30,10 @@ export const MapComponent: React.FC<MapComponentProps> = ({
       places.forEach((p) => {
         bounds.extend(new google.maps.LatLng(p.lat, p.lng));
       });
+      if (place && place.lat !== 0 && place.lng !== 0) {
+        bounds.extend(new google.maps.LatLng(place.lat, place.lng));
+      }
+
       map.fitBounds(bounds);
     } else {
       const worldBounds = {
