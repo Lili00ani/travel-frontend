@@ -137,6 +137,12 @@ export function TravelForm() {
     const accessToken = await getAccessTokenSilently();
     setLoading(true);
     try {
+      await axios.delete(`${BACKEND_URL}/tags/all/${travelState.id}`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
       await axios.delete(`${BACKEND_URL}/place/all/${travelState.id}`, {
         headers: {
           Authorization: `Bearer ${accessToken}`,

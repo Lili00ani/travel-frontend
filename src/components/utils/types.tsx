@@ -39,6 +39,7 @@ export interface PlacePreview {
   idx: number;
   start: Date;
   end: Date;
+  tags: any;
 }
 
 export interface PlaceUpdate {

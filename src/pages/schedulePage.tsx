@@ -1,10 +1,11 @@
-import { Tag } from "../components/Tags";
+import { useParams } from "react-router-dom";
 
-export default function schedulePage() {
+export default function SchedulePage() {
   console.log("schedule page");
+
   return (
     <div>
-      <Tag />
+      <p>Hello</p>
     </div>
   );
 }
