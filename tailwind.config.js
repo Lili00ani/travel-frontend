@@ -12,6 +12,7 @@ module.exports = {
       width: {
         90: "90vw",
         80: "80vw",
+        58: "58vw",
       },
       height: {
         1000: "300vh",
