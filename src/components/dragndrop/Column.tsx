@@ -37,7 +37,7 @@ const Column: React.FC<ColumnProps> = ({ col: { list, id } }) => {
             {columnName}
           </h2>
           <div
-            className="mt-6 h-full overflow-y-auto"
+            className="mt-6 h-full overflow-y-auto   [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
             {...provided.droppableProps}
             ref={provided.innerRef}
           >
@@ -45,6 +45,7 @@ const Column: React.FC<ColumnProps> = ({ col: { list, id } }) => {
               <Item key={place.id} place={place} index={index} />
             ))}
             {provided.placeholder}
+            <div className="mb-8 pb-8"></div>
           </div>
         </div>
       )}

@@ -49,12 +49,15 @@ const Item: React.FC<ItemProps> = ({ place, index }) => {
     <Draggable draggableId={place.id.toString()} index={index}>
       {(provided) => (
         <div
-          className="relative"
+          className="relative mb-2"
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
         >
-          <Card theme={CustomCard} className="w-full py-1 px-1 relative">
+          <Card
+            theme={CustomCard}
+            className="w-full py-1 px-1 relative hover:shadow-md hover:shadow-gray-500"
+          >
             <div className="flex flex-col items-start">
               <div className="absolute top-2 left-2 flex items-center justify-center">
                 {index + 1}
@@ -83,7 +86,13 @@ const Item: React.FC<ItemProps> = ({ place, index }) => {
               </div>
               <div>
                 <h5 className="line-clamp-2 text-1xl leading-none font-medium text-gray-900 dark:text-white mb-2">
-                  <a href={`./places/${place.id}`}>{place.name}</a>
+                  <a
+                    href={`./places/${place.id}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {place.name}
+                  </a>
                 </h5>
                 <form className="flex flex-col gap-2">
                   {isEditing ? (
