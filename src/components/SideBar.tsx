@@ -76,6 +76,11 @@ export const SideBar: React.FC<SideBarProps> = ({
                   <strong>{travel.name}</strong>
                   <DateRangeComponent startDate={startDate} endDate={endDate} />
                 </Sidebar.Item>
+                <Sidebar.ItemGroup>
+                  <NavLink to="home">
+                    <Sidebar.Item icon={HiHome}>Homepage</Sidebar.Item>
+                  </NavLink>
+                </Sidebar.ItemGroup>
               </Sidebar.ItemGroup>
               <Sidebar.ItemGroup>
                 <NavLink to={`/${id}/schedule`}>
@@ -94,11 +99,6 @@ export const SideBar: React.FC<SideBarProps> = ({
                 </NavLink>
                 <NavLink to={`/${id}/organize`}>
                   <Sidebar.Item icon={HiOutlineTable}>Organize</Sidebar.Item>
-                </NavLink>
-              </Sidebar.ItemGroup>
-              <Sidebar.ItemGroup>
-                <NavLink to="home">
-                  <Sidebar.Item icon={HiHome}>Homepage</Sidebar.Item>
                 </NavLink>
               </Sidebar.ItemGroup>
             </Sidebar.Items>
