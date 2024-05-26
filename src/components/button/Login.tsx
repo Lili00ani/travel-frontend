@@ -10,5 +10,9 @@ export const LoginButton = () => {
       },
     });
   };
-  return <Button onClick={handleLogin}>Log In</Button>;
+  return (
+    <Button color="light" onClick={handleLogin}>
+      Log In
+    </Button>
+  );
 };

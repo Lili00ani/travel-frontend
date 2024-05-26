@@ -232,13 +232,14 @@ export function TravelForm() {
           </select>
         </div>
         <div>
-          <Button className="my-3 flex w-full" type="submit">
+          <Button color="dark" className="my-3 flex w-full" type="submit">
             Save
           </Button>
           {travel && (
             <Button
               className="my-3 flex w-full"
               type="button"
+              color="light"
               onClick={() => setOpenModal(true)}
             >
               Delete
