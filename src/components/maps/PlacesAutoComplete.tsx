@@ -153,7 +153,7 @@ export const PlacesAutoComplete: React.FC<PlacesAutoCompleteProps> = ({
                   <ComboboxOption
                     key={place_id}
                     value={description}
-                    className="hover:bg-gray-100 h-8 border-t border-gray-300"
+                    className="hover:bg-gray-100 line-clamp-1 h-8 border-t border-gray-300"
                   />
                 ))}
             </ComboboxList>
@@ -163,7 +163,7 @@ export const PlacesAutoComplete: React.FC<PlacesAutoCompleteProps> = ({
       <div>
         {newPlace && (
           <Button onClick={handleAdd} className="ml-3">
-            Add to your list
+            Add
           </Button>
         )}
       </div>

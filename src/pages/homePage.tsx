@@ -98,7 +98,7 @@ export default function HomePage() {
           </div>
         )}
         <div className="flex-col">
-          <h2 className="px-10 my-10 text-4xl">Your Travel Plan</h2>
+          <h2 className="px-10 my-10 md:text-4xl text-2xl">Your Travel Plan</h2>
           <div className="w-90 grid grid-cols-1 gap-4 mx-10 md:grid-cols-3">
             {travelPreviews}
           </div>

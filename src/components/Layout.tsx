@@ -12,7 +12,7 @@ export default function Layout() {
       </div>
       <div
         className={`flex-1 ${
-          showSidebar ? "ml-64" : "ml-16"
+          showSidebar ? "md:ml-64" : "md:ml-16"
         } overflow-y-auto px-10 py-5`}
       >
         <Outlet />
