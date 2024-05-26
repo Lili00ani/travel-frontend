@@ -20,7 +20,7 @@ export const CustomNavBar: CustomFlowbiteTheme["navbar"] = {
     },
   },
   brand: {
-    base: "flex items-center",
+    base: "flex items-center justify-start",
   },
   collapse: {
     base: "w-full md:block md:w-auto",

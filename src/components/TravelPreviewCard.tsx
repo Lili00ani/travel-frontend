@@ -10,14 +10,17 @@ const TravelPreviewCard: FunctionComponent<Travel> = (props) => {
   const endDate = new Date(props.end);
 
   return (
-    <Card href={`./${props.id}/organize`} className="w-full h-48 py-5 px-5">
+    <Card
+      href={`./${props.id}/organize`}
+      className="w-full h-48 md:py-5 md:px-5"
+    >
       <div className="mb-4 flex items-center justify-between">
-        <h5 className="text-3xl font-bold leading-none text-gray-900 dark:text-white">
+        <h5 className="md:text-3xl text-xl font-bold leading-none text-gray-900 dark:text-white">
           {props.name}
         </h5>
         <a
           href={`./${props.id}/edit`}
-          className="text-sm font-medium text-cyan-600 hover:underline dark:text-cyan-500"
+          className="md:text-sm font-medium text-cyan-600 hover:underline dark:text-cyan-500"
         >
           <MdEdit size={24} />
         </a>

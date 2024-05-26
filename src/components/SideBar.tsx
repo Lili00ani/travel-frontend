@@ -73,8 +73,21 @@ export const SideBar: React.FC<SideBarProps> = ({
                 </Tooltip>
 
                 <Sidebar.Item>
-                  <strong>{travel.name}</strong>
-                  <DateRangeComponent startDate={startDate} endDate={endDate} />
+                  <Tooltip
+                    arrow={false}
+                    content="Edit"
+                    trigger="hover"
+                    placement="right"
+                    animation="duration-300"
+                  >
+                    <NavLink to={`/${id}/edit`}>
+                      <strong>{travel.name}</strong>
+                      <DateRangeComponent
+                        startDate={startDate}
+                        endDate={endDate}
+                      />
+                    </NavLink>
+                  </Tooltip>
                 </Sidebar.Item>
                 <Sidebar.ItemGroup>
                   <NavLink to="home">
@@ -83,9 +96,9 @@ export const SideBar: React.FC<SideBarProps> = ({
                 </Sidebar.ItemGroup>
               </Sidebar.ItemGroup>
               <Sidebar.ItemGroup>
-                <NavLink to={`/${id}/schedule`}>
+                {/* <NavLink to={`/${id}/schedule`}>
                   <Sidebar.Item icon={HiMap}>Schedule</Sidebar.Item>
-                </NavLink>
+                </NavLink> */}
                 {/* <NavLink to="day">
                   <Sidebar.Collapse icon={HiCalendar} label="Daily Schedule">
                     <Sidebar.Item href="#">Day 1</Sidebar.Item>
