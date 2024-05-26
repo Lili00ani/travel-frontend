@@ -4,7 +4,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { useNavigate } from "react-router-dom";
 import { BACKEND_URL } from "../constant";
 import axios from "axios";
-import { Spinner } from "flowbite-react";
+import { Spinner, Card } from "flowbite-react";
 import NavigationBar from "../components/NavBar";
 import TravelPreviewCard from "../components/TravelPreviewCard";
 import { Travel } from "../components/utils/types";
@@ -128,6 +128,13 @@ export default function HomePage() {
             Upcoming Travel Plans
           </h2>
           <div className="w-90 grid grid-cols-1 gap-4 mx-10 md:grid-cols-3">
+            <Card href={`./create`} className="w-full h-48 md:py-5 md:px-5">
+              <div className="mb-4 flex items-center justify-between">
+                <h5 className="md:text-2xl text-xl leading-none text-gray-900 dark:text-white">
+                  + Create Travel Plan
+                </h5>
+              </div>
+            </Card>
             {currentTravelPreviews}
           </div>
           <h2 className="px-10 my-10 md:text-3xl text-1xl">

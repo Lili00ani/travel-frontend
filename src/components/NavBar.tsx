@@ -20,14 +20,11 @@ function NavigationBar() {
         {isAuthenticated && (
           <>
             <div className="flex md:order-2">
-              <Button color="dark" as={Link} to="/create">
-                Create Travel Plan
-              </Button>
-              <Navbar.Toggle />
-            </div>
-            <Navbar.Collapse>
               <LogoutButton />
-            </Navbar.Collapse>
+              {/* <Button color="dark" as={Link} to="/create">
+                Create Travel Plan
+              </Button> */}
+            </div>
           </>
         )}
         {!isAuthenticated && (
