@@ -13,7 +13,7 @@ function NavigationBar() {
     <Navbar theme={CustomNavBar} fluid rounded>
       <Navbar.Brand href="/">
         <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
-          TravelPin
+          Travelin'
         </span>
       </Navbar.Brand>
       {isAuthenticated && (

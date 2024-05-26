@@ -11,7 +11,7 @@ function App() {
 
   return (
     <>
-      {!isLoaded && <Spinner />};
+      {!isLoaded && <Spinner />}
       {isLoaded && (
         <UserProvider>
           <RouterProvider />
