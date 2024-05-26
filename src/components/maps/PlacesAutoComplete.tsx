@@ -131,14 +131,14 @@ export const PlacesAutoComplete: React.FC<PlacesAutoCompleteProps> = ({
   };
 
   return (
-    <div className="w-full">
-      <div>
+    <div className="flex flex-row">
+      <div className={`${newPlace ? "flex-grow" : "w-full"}`}>
         <Combobox onSelect={handleSelect}>
           <ComboboxInput
             value={value}
             onChange={handleInputChange}
             disabled={!ready}
-            placeholder="Select Your Location"
+            placeholder="Find and add your travel spot 😄"
             style={{
               width: "100%",
               border: "1px solid black",
@@ -147,16 +147,22 @@ export const PlacesAutoComplete: React.FC<PlacesAutoCompleteProps> = ({
             }}
           />
           <ComboboxPopover>
-            <ComboboxList>
+            <ComboboxList className="bg-white">
               {status === "OK" &&
                 data.map(({ description, place_id }) => (
-                  <ComboboxOption key={place_id} value={description} />
+                  <ComboboxOption
+                    key={place_id}
+                    value={description}
+                    className="hover:bg-gray-100 h-8 border-t border-gray-300"
+                  />
                 ))}
             </ComboboxList>
           </ComboboxPopover>
         </Combobox>
+      </div>
+      <div>
         {newPlace && (
-          <Button onClick={handleAdd} className="flex w-full my-3">
+          <Button onClick={handleAdd} className="ml-3">
             Add to your list
           </Button>
         )}

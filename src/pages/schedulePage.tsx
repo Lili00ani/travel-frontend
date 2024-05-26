@@ -1,8 +1,11 @@
-export default function schedulePage() {
+import { useParams } from "react-router-dom";
+
+export default function SchedulePage() {
   console.log("schedule page");
+
   return (
     <div>
-      <h1>schedulePage</h1>
+      <p>Hello</p>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import { Sidebar, Spinner } from "flowbite-react";
+import { Sidebar, Spinner, Tooltip } from "flowbite-react";
 import {
   HiCalendar,
   HiChevronDoubleLeft,
@@ -41,9 +41,17 @@ export const SideBar: React.FC<SideBarProps> = ({
     <div className="fixed top-0 left-0 h-full z-50">
       {!showSidebar && (
         <div className="px-3 py-3 text-xl">
-          <button onClick={toggleSidebar}>
-            <HiMenu />
-          </button>
+          <Tooltip
+            arrow={false}
+            content="Show Menu"
+            trigger="hover"
+            placement="right"
+            animation="duration-300"
+          >
+            <button onClick={toggleSidebar}>
+              <HiMenu />
+            </button>
+          </Tooltip>
         </div>
       )}
 
@@ -52,14 +60,27 @@ export const SideBar: React.FC<SideBarProps> = ({
           <Sidebar theme={CustomSideBar} aria-label="travel">
             <Sidebar.Items>
               <Sidebar.ItemGroup>
-                <Sidebar.Item onClick={toggleSidebar}>
-                  <HiChevronDoubleLeft />
-                </Sidebar.Item>
+                <Tooltip
+                  arrow={false}
+                  content="Hide Menu"
+                  trigger="hover"
+                  placement="right"
+                  animation="duration-300"
+                >
+                  <Sidebar.Item onClick={toggleSidebar}>
+                    <HiChevronDoubleLeft />
+                  </Sidebar.Item>
+                </Tooltip>
 
                 <Sidebar.Item>
                   <strong>{travel.name}</strong>
                   <DateRangeComponent startDate={startDate} endDate={endDate} />
                 </Sidebar.Item>
+                <Sidebar.ItemGroup>
+                  <NavLink to="home">
+                    <Sidebar.Item icon={HiHome}>Homepage</Sidebar.Item>
+                  </NavLink>
+                </Sidebar.ItemGroup>
               </Sidebar.ItemGroup>
               <Sidebar.ItemGroup>
                 <NavLink to={`/${id}/schedule`}>
@@ -78,11 +99,6 @@ export const SideBar: React.FC<SideBarProps> = ({
                 </NavLink>
                 <NavLink to={`/${id}/organize`}>
                   <Sidebar.Item icon={HiOutlineTable}>Organize</Sidebar.Item>
-                </NavLink>
-              </Sidebar.ItemGroup>
-              <Sidebar.ItemGroup>
-                <NavLink to="home">
-                  <Sidebar.Item icon={HiHome}>Homepage</Sidebar.Item>
                 </NavLink>
               </Sidebar.ItemGroup>
             </Sidebar.Items>

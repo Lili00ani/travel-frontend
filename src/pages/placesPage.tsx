@@ -16,7 +16,7 @@ export default function PlacesPage() {
 
   useEffect(() => {
     fetchAllPlaces();
-  }, []);
+  }, [selectedPlace]);
 
   console.log(places);
 
@@ -34,10 +34,10 @@ export default function PlacesPage() {
         <div className="flex flex-col">
           <div className="w-10/12 mx-auto">
             <div className="w-full grid grid-cols-6 gap-4">
-              <div className="col-span-2">
+              <div className="col-span-6">
                 <PlacesAutoComplete setSelectedPlace={setSelectedPlace} />
               </div>
-              <div className="col-span-4">
+              <div className="col-span-6">
                 {!isLoading && (
                   <MapComponent place={selectedPlace} places={places} />
                 )}
