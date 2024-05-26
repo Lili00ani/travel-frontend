@@ -10,10 +10,7 @@ const TravelPreviewCard: FunctionComponent<Travel> = (props) => {
   const endDate = new Date(props.end);
 
   return (
-    <Card
-      href={`./${props.id}/organize`}
-      className="w-full h-48 md:py-5 md:px-5"
-    >
+    <Card href={`./${props.id}/places`} className="w-full h-48 md:py-5 md:px-5">
       <div className="mb-4 flex items-center justify-between">
         <h5 className="md:text-3xl text-xl font-bold leading-none text-gray-900 dark:text-white">
           {props.name}
