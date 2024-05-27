@@ -137,7 +137,7 @@ export default function OrganizePage() {
               </div>
             </div>
             <hr className="h-px mt-2 mb-3 bg-gray-200 border-0 dark:bg-gray-700" />
-            <div className="flex space-x-3 ">
+            <div className="flex space-x-3 min-h-48">
               {Object.keys(columnData)
                 .filter((id) => id !== "saved")
                 .map((id) => (

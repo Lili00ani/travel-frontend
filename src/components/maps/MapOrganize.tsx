@@ -9,7 +9,6 @@ interface MapOrganizeProps {
 }
 
 const markerColors = [
-  "http://maps.google.com/mapfiles/ms/icons/grey.png",
   "http://maps.google.com/mapfiles/ms/icons/blue.png",
   "http://maps.google.com/mapfiles/ms/icons/green.png",
   "http://maps.google.com/mapfiles/ms/icons/yellow.png",
@@ -18,6 +17,8 @@ const markerColors = [
   "http://maps.google.com/mapfiles/ms/icons/pink.png",
   "http://maps.google.com/mapfiles/ms/icons/red.png",
 ];
+
+const savedMarkerColor = "http://maps.google.com/mapfiles/ms/icons/grey.png";
 
 export const MapOrganize: React.FC<MapOrganizeProps> = ({ places }) => {
   const mapContainerStyle = {
@@ -72,7 +73,10 @@ export const MapOrganize: React.FC<MapOrganizeProps> = ({ places }) => {
 
   const markers = orderedPlaces.flatMap((key, colIndex) =>
     places[key].list.map((place, index) => {
-      const markerUrl = markerColors[colIndex % markerColors.length];
+      const markerUrl =
+        key === "saved"
+          ? savedMarkerColor
+          : markerColors[colIndex % markerColors.length];
       console.log(markerUrl, colIndex, (index + 1).toString());
       return (
         <Marker

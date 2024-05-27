@@ -60,6 +60,7 @@
     border-radius: 6px;
     display: flex;
     align-items: center;
+    white-space: nowrap; /* Prevent the text from wrapping */
   }
 }
 

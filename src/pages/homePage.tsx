@@ -8,6 +8,7 @@ import { Spinner, Card } from "flowbite-react";
 import NavigationBar from "../components/NavBar";
 import TravelPreviewCard from "../components/TravelPreviewCard";
 import { Travel } from "../components/utils/types";
+import { HiOutlineBriefcase } from "react-icons/hi";
 
 const initialTravelState: Travel[] = [];
 
@@ -124,20 +125,26 @@ export default function HomePage() {
           </div>
         )}
         <div className="flex-col">
-          <h2 className="px-10 my-10 md:text-3xl text-1xl">
+          <h2 className="px-10 my-10 md:text-2xl text-1xl">
             Upcoming Travel Plans
           </h2>
           <div className="w-90 grid grid-cols-1 gap-4 mx-10 md:grid-cols-3">
-            <Card href={`./create`} className="w-full h-48 md:py-5 md:px-5">
-              <div className="mb-4 flex items-center justify-between">
-                <h5 className="md:text-2xl text-xl leading-none text-gray-900 dark:text-white">
-                  + Create Travel Plan
+            <Card
+              href={`./create`}
+              className="w-full flex flex-col items-center h-48 md:py-5 md:px-5"
+            >
+              <div className="mb-4 flex flex-col items-center">
+                <HiOutlineBriefcase
+                  style={{ fontSize: "2em", color: "grey" }}
+                />
+                <h5 className="md:text-md text-gray-900 dark:text-white mt-2">
+                  Create a Travel Plan
                 </h5>
               </div>
             </Card>
             {currentTravelPreviews}
           </div>
-          <h2 className="px-10 my-10 md:text-3xl text-1xl">
+          <h2 className="px-10 my-10 md:text-2xl text-1xl">
             Past Travel Plans
           </h2>
           <div className="w-90 grid grid-cols-1 gap-4 mx-10 md:grid-cols-3">
