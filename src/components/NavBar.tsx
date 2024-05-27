@@ -20,10 +20,10 @@ function NavigationBar() {
         {isAuthenticated && (
           <>
             <div className="flex md:order-2">
-              <LogoutButton />
-              {/* <Button color="dark" as={Link} to="/create">
+              <Button className="mx-2" color="dark" as={Link} to="/create">
                 Create Travel Plan
-              </Button> */}
+              </Button>
+              <LogoutButton />
             </div>
           </>
         )}

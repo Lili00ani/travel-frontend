@@ -40,7 +40,7 @@ export const SideBar: React.FC<SideBarProps> = ({
   return (
     <div className="fixed top-0 left-0 h-full z-50">
       {!showSidebar && (
-        <div className="px-3 py-3 text-xl">
+        <div className="px-6 py-5 text-xl">
           <Tooltip
             arrow={false}
             content="Show Menu"
