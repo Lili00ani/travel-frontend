@@ -162,7 +162,7 @@ export const PlacesAutoComplete: React.FC<PlacesAutoCompleteProps> = ({
       </div>
       <div>
         {newPlace && (
-          <Button onClick={handleAdd} className="ml-3">
+          <Button color="dark" onClick={handleAdd} className="ml-3">
             Add
           </Button>
         )}

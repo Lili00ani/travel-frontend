@@ -15,5 +15,9 @@ export const SignupButton = () => {
     });
   };
 
-  return <Button onClick={handleSignUp}>Sign Up</Button>;
+  return (
+    <Button color="dark" onClick={handleSignUp}>
+      Get Started
+    </Button>
+  );
 };

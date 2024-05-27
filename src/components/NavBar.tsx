@@ -10,33 +10,33 @@ function NavigationBar() {
   const { isAuthenticated, getAccessTokenSilently, user } = useAuth0();
 
   return (
-    <Navbar theme={CustomNavBar} fluid rounded>
-      <Navbar.Brand href="/">
-        <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
-          Travelin'
-        </span>
-      </Navbar.Brand>
-      {isAuthenticated && (
-        <>
-          <div className="flex md:order-2">
-            <Button as={Link} to="/create">
-              Create Travel Plan
-            </Button>
-            <Navbar.Toggle />
-          </div>
-          <Navbar.Collapse>
-            <LogoutButton />
-          </Navbar.Collapse>
-        </>
-      )}
-      {!isAuthenticated && (
-        <>
-          <div className="flex md:order-2">
-            <LoginButton />
-          </div>
-        </>
-      )}
-    </Navbar>
+    <>
+      <Navbar theme={CustomNavBar} fluid rounded>
+        <Navbar.Brand href="/">
+          <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
+            Travelin'
+          </span>
+        </Navbar.Brand>
+        {isAuthenticated && (
+          <>
+            <div className="flex md:order-2">
+              <Button className="mx-2" color="dark" as={Link} to="/create">
+                Create Travel Plan
+              </Button>
+              <LogoutButton />
+            </div>
+          </>
+        )}
+        {!isAuthenticated && (
+          <>
+            <div className="flex md:order-2">
+              <LoginButton />
+            </div>
+          </>
+        )}
+      </Navbar>
+      <hr className="w-full border-t border-gray-300 mt-1" />
+    </>
   );
 }
 

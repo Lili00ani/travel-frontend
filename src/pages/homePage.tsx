@@ -16,7 +16,9 @@ export default function HomePage() {
   const { isAuthenticated, getAccessTokenSilently, user } = useAuth0();
   const navigate = useNavigate();
   const [loading, setLoading] = useState<boolean>(false);
-  const [travels, setTravels] = useState<Travel[]>(initialTravelState);
+  const [travelsCurrent, setTravelsCurrent] =
+    useState<Travel[]>(initialTravelState);
+  const [travelsPast, setTravelsPast] = useState<Travel[]>(initialTravelState);
   const [isChecked, setIsChecked] = useState<boolean>(false);
 
   const checkUser = async () => {
@@ -51,12 +53,12 @@ export default function HomePage() {
     }
   };
 
-  const fetchTravelPlans = async () => {
+  const fetchTravelCurrentPlans = async () => {
     setLoading(true);
     try {
       console.log("fetchalluserId", value?.user.userId!);
       const accessToken = await getAccessTokenSilently();
-      const response = await axios.get(`${BACKEND_URL}/travel/all`, {
+      const response = await axios.get(`${BACKEND_URL}/travel/current/all`, {
         params: {
           id: value?.user.userId!,
         },
@@ -64,7 +66,28 @@ export default function HomePage() {
           Authorization: `Bearer ${accessToken}`,
         },
       });
-      setTravels(response.data);
+      setTravelsCurrent(response.data);
+      setLoading(false);
+    } catch (error) {
+      console.error(error);
+      setLoading(false);
+    }
+  };
+
+  const fetchTravelPastPlans = async () => {
+    setLoading(true);
+    try {
+      console.log("fetchalluserId", value?.user.userId!);
+      const accessToken = await getAccessTokenSilently();
+      const response = await axios.get(`${BACKEND_URL}/travel/past/all`, {
+        params: {
+          id: value?.user.userId!,
+        },
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      setTravelsPast(response.data);
       setLoading(false);
     } catch (error) {
       console.error(error);
@@ -78,11 +101,16 @@ export default function HomePage() {
 
   useEffect(() => {
     if (isChecked) {
-      fetchTravelPlans();
+      fetchTravelCurrentPlans();
+      fetchTravelPastPlans();
     }
   }, [isChecked]);
 
-  const travelPreviews = travels.map((travel) => (
+  const currentTravelPreviews = travelsCurrent.map((travel) => (
+    <TravelPreviewCard key={travel.id} {...travel} />
+  ));
+
+  const pastTravelPreviews = travelsPast.map((travel) => (
     <TravelPreviewCard key={travel.id} {...travel} />
   ));
 
@@ -96,9 +124,17 @@ export default function HomePage() {
           </div>
         )}
         <div className="flex-col">
-          <h2 className="px-10 my-10 md:text-4xl text-2xl">Your Travel Plan</h2>
+          <h2 className="px-10 my-10 md:text-2xl text-1xl">
+            Upcoming Travel Plans
+          </h2>
           <div className="w-90 grid grid-cols-1 gap-4 mx-10 md:grid-cols-3">
-            {travelPreviews}
+            {currentTravelPreviews}
+          </div>
+          <h2 className="px-10 my-10 md:text-2xl text-1xl">
+            Past Travel Plans
+          </h2>
+          <div className="w-90 grid grid-cols-1 gap-4 mx-10 md:grid-cols-3">
+            {pastTravelPreviews}
           </div>
         </div>
       </div>
