@@ -32,7 +32,7 @@ export default function IntroPage() {
       </div>
 
       <div className="flex  flex-row justify-center">
-        <img className="w-58 shadow-md shadow-gray-400" src="organize.png" />
+        <img className="w-58 shadow-md shadow-gray-400" src="capture.gif" />
         {/* <img src="walking.gif" className="mt-4" alt="Walking" /> */}
       </div>
       <div className="flex justify-center mt-5">
