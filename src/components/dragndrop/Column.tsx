@@ -12,10 +12,10 @@ interface ColumnProps {
 
 const Colors = [
   "decoration-blue-500/40",
-  "decoration-green-500/40",
-  "decoration-yellow-500/40",
+  "decoration-green-400/40",
+  "decoration-yellow-200/40",
   "decoration-purple-500/40",
-  "decoration-orange-500/40",
+  "decoration-orange-400/40",
   "decoration-pink-500/40",
   "decoration-red-500/40",
 ];

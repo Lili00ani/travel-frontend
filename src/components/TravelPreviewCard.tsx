@@ -4,7 +4,6 @@ import React, { FunctionComponent } from "react";
 import DateRangeComponent from "./utils/DateRange";
 import { Travel } from "./utils/types";
 import { MdEdit } from "react-icons/md";
-import getFlagEmoji from "./utils/Flag";
 
 const TravelPreviewCard: FunctionComponent<Travel> = (props) => {
   const startDate = new Date(props.start);

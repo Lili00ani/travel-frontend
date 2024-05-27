@@ -75,6 +75,8 @@ export default function HomePage() {
     }
   };
 
+  console.log(value);
+
   const fetchTravelPastPlans = async () => {
     setLoading(true);
     try {
@@ -98,7 +100,7 @@ export default function HomePage() {
 
   useEffect(() => {
     checkUser();
-  }, [user, isAuthenticated]);
+  }, [user, isAuthenticated, isChecked]);
 
   useEffect(() => {
     if (isChecked) {

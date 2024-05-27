@@ -60,6 +60,12 @@ export function TravelForm() {
         }));
       }
       try {
+        if (value!.user!.userId) {
+          setTravelState((prevState) => ({
+            ...prevState,
+            owner_id: value!.user.userId,
+          }));
+        }
         const response = await axios.get(`${BACKEND_URL}/countries`);
         setCountries(response.data);
         setLoading(false);
