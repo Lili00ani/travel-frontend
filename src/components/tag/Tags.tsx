@@ -138,6 +138,7 @@ export const Tag = ({
             placeholder="Add Category"
             allowDragDrop={false}
             autocomplete
+            autofocus={false}
             handleTagClick={handleTagClick}
           />
         ) : (
@@ -151,6 +152,7 @@ export const Tag = ({
             placeholder=""
             allowDragDrop={false}
             autocomplete
+            autofocus={false}
             handleTagClick={handleTagClick}
           />
         )}
