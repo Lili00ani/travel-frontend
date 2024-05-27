@@ -86,8 +86,6 @@ export default function HomePage() {
     <TravelPreviewCard key={travel.id} {...travel} />
   ));
 
-  console.log(travels);
-
   return (
     <>
       <NavigationBar />
